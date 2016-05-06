@@ -44,6 +44,7 @@ public class behavior : StateMachineBehaviour {
 	// This will be called every frame whilst in the state.
 	override public void OnStateIK (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+
 		// OnStateExit may be called before the last OnStateIK so we need to check the particles haven't been destroyed.
 		if (particleSystem == null || particlesTransform == null)
 			return;
