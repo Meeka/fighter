@@ -9,18 +9,29 @@ public class test : MonoBehaviour {
 	void Start () {
         testControl.onHorizontalMov += horzMovEventReceived;
         testControl.onVerticalMov += vertMovEventReceived;
+		testControl.onHeavyAttack += heavyAttackEventReceived;
+		testControl.onLightAttack += lightAttackEventReceived;
 	}
 
     private void vertMovEventReceived(float direction)
     {
-        Debug.logger.Log("We moved vertically by this much: " + direction.ToString());
+        Debug.Log("We moved vertically by this much: " + direction.ToString());
     }
 
     private void horzMovEventReceived(float direction)
     {
-        Debug.logger.Log("We moved horizontally by this much: " + direction.ToString());
+        Debug.Log("We moved horizontally by this much: " + direction.ToString());
     }
-	
+
+	private void heavyAttackEventReceived()
+	{
+		Debug.Log ("Heavy Attack!!");
+	}
+
+	private void lightAttackEventReceived()
+	{
+		Debug.Log ("Light Attack!!");
+	}
 	// Update is called once per frame
 	void Update () {
 	
