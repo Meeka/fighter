@@ -11,6 +11,8 @@ public class test : MonoBehaviour {
         testControl.onVerticalMov += vertMovEventReceived;
 		testControl.onHeavyAttack += heavyAttackEventReceived;
 		testControl.onLightAttack += lightAttackEventReceived;
+		testControl.onJump += jumpEventReceived;
+		testControl.onBlock += blockEventReceived;
 	}
 
     private void vertMovEventReceived(float direction)
@@ -31,6 +33,16 @@ public class test : MonoBehaviour {
 	private void lightAttackEventReceived()
 	{
 		Debug.Log ("Light Attack!!");
+	}
+
+	private void jumpEventReceived()
+	{
+		Debug.Log ("Jump!!");
+	}
+
+	private void blockEventReceived()
+	{
+		Debug.Log ("Block!!");
 	}
 	// Update is called once per frame
 	void Update () {
