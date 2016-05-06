@@ -16,6 +16,12 @@ public class controls : MonoBehaviour {
 	public delegate void lightAttack();
 	public lightAttack onLightAttack;
 
+	public delegate void jump();
+	public jump onJump;
+
+	public delegate void block();
+	public block onBlock;
+
     // Use this for initialization
 	void Start () {
 	
@@ -38,6 +44,14 @@ public class controls : MonoBehaviour {
 		if (Input.GetKey("k") && onLightAttack != null)
 		{
 			onLightAttack.Invoke();
+		}
+		if (Input.GetKey ("space") && onJump != null) 
+		{
+			onJump.Invoke();
+		}
+		if (Input.GetKey ("l") && onBlock != null) 
+		{
+			onBlock.Invoke();
 		}
 	}
 }
