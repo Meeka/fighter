@@ -37,19 +37,19 @@ public class controls : MonoBehaviour {
         {
             onVerticalMov.Invoke(Input.GetAxis("Vertical"));
         }
-		if (Input.GetKey("j") && onHeavyAttack != null)
+		if (Input.GetKeyDown("j") && onHeavyAttack != null)
 		{
 			onHeavyAttack.Invoke();
 		}
-		if (Input.GetKey("k") && onLightAttack != null)
+		if (Input.GetKeyDown("k") && onLightAttack != null)
 		{
 			onLightAttack.Invoke();
 		}
-		if (Input.GetKey ("space") && onJump != null) 
+		if (Input.GetKeyDown("space") && onJump != null) 
 		{
 			onJump.Invoke();
 		}
-		if (Input.GetKey ("l") && onBlock != null) 
+		if (Input.GetKeyDown("l") && onBlock != null) 
 		{
 			onBlock.Invoke();
 		}
