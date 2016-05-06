@@ -1,13 +1,15 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class testCharacter : MonoBehaviour {
+public class Character : MonoBehaviour {
 
 	public Rigidbody body;
 
 	public float HP;
-	//controls controls
+	controls controls;
 	Attack currentAttack;
+
+	public Animator animator;
 
 	Animation idle;
 	Animation dead;
@@ -19,12 +21,15 @@ public class testCharacter : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		/* controls.move += Move; */
+		controls = FindObjectOfType<controls> ();
+		controls.onHorizontalMov += HorizontalMove; 
+		controls.onVerticalMov += VerticalMove; 
+		controls.onHeavyAttack += HeavyAttack;
+		controls.onLightAttack += LightAttack;
 	}
 	
 	// Update is called once per frame
 	void Update () {
-		Debug.Log (Random.value);
 		if (Random.value < 0.01)
 			body.AddForce (new Vector3 (Random.value - 0.5f, Random.value -0.5f, Random.value-0.5f) * 500);
 	}
@@ -34,6 +39,15 @@ public class testCharacter : MonoBehaviour {
 		currentAttack = attack;
 
 	}
-
+	
+	void HorizontalMove(float amount){}
+	void VerticalMove(float amount){}
+	void HeavyAttack()
+	{
+		currentAttack = Normal1;
+		animator.SetTrigger ("HeavyAttack");
+		//currentAttack.charAnimation.Play ("play");
+	}
+	void LightAttack(){}
 
 }
