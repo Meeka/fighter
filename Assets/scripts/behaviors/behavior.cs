@@ -3,8 +3,6 @@ using System.Collections;
 
 public class behavior : StateMachineBehaviour {
 
-	public GameObject particles;            // Prefab of the particle system to play in the state.
-	public AvatarIKGoal attackLimb;         // The limb that the particles should follow.
 	public Attack attackPrefab;
 	
 	
@@ -16,51 +14,69 @@ public class behavior : StateMachineBehaviour {
 	// This will be called when the animator first transitions to this state.
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		// If the particle system already exists then exit the function.
-		if(particlesTransform != null)
-			return;
-		
-		// Otherwise instantiate the particles and set up references to their components.
-		GameObject particlesInstance = Instantiate(particles);
-		particlesTransform = particlesInstance.transform;
-		particleSystem = particlesInstance.GetComponent <ParticleSystem> ();
-
-		attack = Instantiate<Attack> (attackPrefab);
-		attack.sourceChar = animator.GetComponentInParent<Collider>();
 	}
 	
 	
 	// This will be called once the animator has transitioned out of the state.
 	override public void OnStateExit (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
-		// When leaving the special move state, stop the particles.
-		particleSystem.Stop();
-		Destroy (particleSystem.gameObject);
-
-		Destroy (attack.gameObject);
+		destroyAttack ();
 	}
 	
 	
 	// This will be called every frame whilst in the state.
 	override public void OnStateIK (Animator animator, AnimatorStateInfo stateInfo, int layerIndex)
 	{
+		if (attack == null)
+			return;
+
+		// Find the position and rotation of the limb the particles should follow.
+		Vector3 limbPosition = animator.GetIKPosition(attack.attackLimb);
+		Quaternion limbRotation = animator.GetIKRotation (attack.attackLimb);
 
 		// OnStateExit may be called before the last OnStateIK so we need to check the particles haven't been destroyed.
-		if (particleSystem == null || particlesTransform == null)
-			return;
-		
-		// Find the position and rotation of the limb the particles should follow.
-		Vector3 limbPosition = animator.GetIKPosition(attackLimb);
-		Quaternion limbRotation = animator.GetIKRotation (attackLimb);
-		
-		// Set the particle's position and rotation based on that limb.
-		particlesTransform.position = limbPosition;
-		particlesTransform.rotation = limbRotation;
+		if (particleSystem != null && particlesTransform != null) {
+			// Set the particle's position and rotation based on that limb.
+			particlesTransform.position = limbPosition;
+			particlesTransform.rotation = limbRotation;
+
+			// If the particle system isn't playing, play it.
+			if(!particleSystem.isPlaying)
+				particleSystem.Play();
+		}
 
 		attack.transform.position = limbPosition;
-		
-		// If the particle system isn't playing, play it.
-		if(!particleSystem.isPlaying)
-			particleSystem.Play();
+	}
+
+	public void SetAttack(Attack newAttackPrefab)
+	{
+		attackPrefab = newAttackPrefab;
+	}
+
+	public void createAttack(Collider collider){
+		if (attackPrefab != null) {
+			attack = Instantiate<Attack> (attackPrefab);
+			attack.sourceChar = collider;
+
+			if(attack.particles != null)
+			{
+				// Instantiate the particles and set up references to their components.
+				GameObject particlesInstance = Instantiate(attack.particles);
+				particlesTransform = particlesInstance.transform;
+				particleSystem = particlesInstance.GetComponent <ParticleSystem> ();
+			}
+		}
+	}
+	public void destroyAttack()
+	{
+		if (attack != null) {
+			Destroy (attack.gameObject);
+		}
+		if(particleSystem != null)
+		{
+			// When leaving the special move state, stop the particles.
+			particleSystem.Stop ();
+			Destroy (particleSystem.gameObject);
+		}
 	}
 }

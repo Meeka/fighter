@@ -11,34 +11,49 @@ public class Character : MonoBehaviour {
 
 	public Animator animator;
 
-	Animation idle;
-	Animation dead;
+	float horizontalMoveAmount;
 
 	public float moveSpeed;
+	public float jumpHeight;
 
-	public Attack Normal1;
-	public Attack Normal2;
-	public Attack Special1;
-	public Attack Special2;
+	public Attack LightAttack;
+	public Attack HeavyAttack;
 
 	public Transform rightHand;
 	public Transform leftHand;
 
+	bool airborne;
+	bool block;
+	bool blockDelay;
+
+	behavior behavior;
+
 	// Use this for initialization
 	void Start () {
+		behavior = animator.GetBehaviour<behavior> ();
+
 		controls = FindObjectOfType<controls> ();
 		controls.onHorizontalMov += HorizontalMove; 
 		controls.onVerticalMov += VerticalMove; 
-		controls.onHeavyAttack += HeavyAttack;
-		controls.onLightAttack += LightAttack;
+		controls.onHeavyAttack += DoHeavyAttack;
+		controls.onLightAttack += DoLightAttack;
+		controls.onJump += Jump;
+		controls.onBlock += Block;
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		//if (animator.GetCurrentAnimatorStateInfo (0).IsName ("Idle"))
-		//	Destroy (currentAttack);
+		airborne = !Physics.Raycast (new Ray (transform.position, Vector3.down), 1);
 
+		if (!blockDelay)
+			block = false;
+
+		blockDelay = false;
+
+		animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
+
+		//body.isKinematic = !airborne;
 	}
 
 	void DoAttack(Attack attack)
@@ -49,21 +64,60 @@ public class Character : MonoBehaviour {
 	
 	void HorizontalMove(float amount)
 	{
-		transform.position += transform.forward * amount * moveSpeed;
+		horizontalMoveAmount = amount;
+
+		if(!airborne)
+			transform.position += transform.forward * amount * moveSpeed;
 	}
 	void VerticalMove(float amount)
 	{
-		transform.position += transform.right * amount * moveSpeed;
+		if (!airborne) {
+			transform.position += transform.right * amount * moveSpeed;
+
+		}
 	}
-	void HeavyAttack()
+	void DoHeavyAttack()
 	{
-		//currentAttack = Instantiate (Normal1);
-		//currentAttack.transform.parent = rightHand;
+		animator.SetTrigger ("heavyAttack");
+		behavior.SetAttack (HeavyAttack);
 
-		animator.SetTrigger ("HeavyAttack");
-
-		//currentAttack.charAnimation.Play ("play");
 	}
-	void LightAttack(){}
+	void DoLightAttack()
+	{
+		animator.SetTrigger ("lightAttack");
+		behavior.SetAttack (LightAttack);
+	}
 
+	void HopForwards()
+	{
+	}
+
+	void HopBackwards()
+	{
+	}
+
+	void Jump()
+	{
+		if (!airborne) 
+		{
+			body.AddForce (Vector3.up * jumpHeight);
+			animator.SetTrigger("jump");
+		}
+	}
+
+	void Block()
+	{
+		block = true; 
+		blockDelay = true;
+	}
+	
+	public void createAttack()
+	{
+		behavior.createAttack (GetComponent<Collider>());
+	}
+	
+	public void destroyAttack()
+	{
+		behavior.destroyAttack ();
+	}
 }

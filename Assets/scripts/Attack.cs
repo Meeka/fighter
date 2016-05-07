@@ -4,8 +4,10 @@ using UnityEngine;
 public class Attack : MonoBehaviour
 {
 	public float damage;
+	[HideInInspector]
 	public Collider sourceChar;
-	
+	public GameObject particles;            // Prefab of the particle system to play in the state.
+	public AvatarIKGoal attackLimb;
 
 	void OnTriggerEnter(Collider other)
 	{
