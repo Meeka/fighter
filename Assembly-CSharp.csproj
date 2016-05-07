@@ -48,7 +48,8 @@
   <ItemGroup>
      <Compile Include="Assets\scripts\Attack.cs" />
      <Compile Include="Assets\scripts\Character.cs" />
-     <Compile Include="Assets\scripts\UIManagerScript.cs" />
+     <Compile Include="Assets\scripts\FightSceneManager.cs" />
+     <Compile Include="Assets\scripts\StartScreenManager.cs" />
      <Compile Include="Assets\scripts\behaviors\behavior.cs" />
      <Compile Include="Assets\scripts\controls.cs" />
      <Compile Include="Assets\scripts\test.cs" />
