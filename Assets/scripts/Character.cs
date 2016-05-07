@@ -12,8 +12,11 @@ public class Character : MonoBehaviour {
 	public Animator animator;
 
 	float horizontalMoveAmount;
+	float targetHorizontalVelocity;
+	float velocityhorizontalSmoothSpeed;
 
 	public float moveSpeed;
+	float walkAnimationFactor = 3;
 	public float jumpHeight;
 
 	public Attack LightAttack;
@@ -22,7 +25,7 @@ public class Character : MonoBehaviour {
 	public Transform rightHand;
 	public Transform leftHand;
 
-	bool airborne;
+	public bool airborne;
 	bool block;
 	bool blockDelay;
 
@@ -32,19 +35,21 @@ public class Character : MonoBehaviour {
 	void Start () {
 		behavior = animator.GetBehaviour<behavior> ();
 
-		controls = FindObjectOfType<controls> ();
 		controls.onHorizontalMov += HorizontalMove; 
-		controls.onVerticalMov += VerticalMove; 
+		//controls.onVerticalMov += VerticalMove; 
 		controls.onHeavyAttack += DoHeavyAttack;
 		controls.onLightAttack += DoLightAttack;
-		controls.onJump += Jump;
+		controls.onJump += DoJump;
 		controls.onBlock += Block;
+		
+		animator.SetFloat ("walkForwardAnimSpeed", moveSpeed / walkAnimationFactor);
+		animator.SetFloat ("walkBackwardsAnimSpeed", -moveSpeed / walkAnimationFactor);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 
-		airborne = !Physics.Raycast (new Ray (transform.position, Vector3.down), 1);
+		airborne = !Physics.Raycast (new Ray (transform.position + Vector3.up * 0.1f, Vector3.down), 0.11f);
 
 		if (!blockDelay)
 			block = false;
@@ -52,22 +57,30 @@ public class Character : MonoBehaviour {
 		blockDelay = false;
 
 		animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
+		animator.SetBool ("airborne", airborne);
 
-		//body.isKinematic = !airborne;
+
+		if (airborne)
+			animator.ResetTrigger ("jump");
+
+				
+		horizontalMoveAmount = Mathf.SmoothDamp (horizontalMoveAmount, targetHorizontalVelocity, ref velocityhorizontalSmoothSpeed, 0.1f);
+		body.velocity = transform.forward * horizontalMoveAmount * moveSpeed + body.velocity.y * Vector3.up;
+		if(!airborne)
+			targetHorizontalVelocity = 0;
 	}
 
 	void DoAttack(Attack attack)
 	{
 		currentAttack = attack;
-
 	}
 	
 	void HorizontalMove(float amount)
 	{
-		horizontalMoveAmount = amount;
 
-		if(!airborne)
-			transform.position += transform.forward * amount * moveSpeed;
+		if (!airborne)
+			targetHorizontalVelocity = -amount;
+
 	}
 	void VerticalMove(float amount)
 	{
@@ -96,11 +109,10 @@ public class Character : MonoBehaviour {
 	{
 	}
 
-	void Jump()
+	void DoJump()
 	{
 		if (!airborne) 
 		{
-			body.AddForce (Vector3.up * jumpHeight);
 			animator.SetTrigger("jump");
 		}
 	}
@@ -110,7 +122,12 @@ public class Character : MonoBehaviour {
 		block = true; 
 		blockDelay = true;
 	}
-	
+
+	public void jump()
+	{
+		body.velocity += transform.up * jumpHeight;
+	}
+
 	public void createAttack()
 	{
 		behavior.createAttack (GetComponent<Collider>());
