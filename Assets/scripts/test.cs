@@ -1,12 +1,49 @@
 ﻿using UnityEngine;
 using System.Collections;
+using System.Collections.Generic;
 
 public class test : MonoBehaviour {
+
+	/*enum input
+	{
+		heavy,
+		light
+	}
+
+	Dictionary<input, string> plr1Map = new Dictionary<input, string>
+	{
+		{light, "Player1Light"},
+		{heavy, "Player1Heavy"}
+	};
+
+	Dictionary<input, string> plr2Map = new Dictionary<input, string>
+	{
+		{light, "Player2Light"},
+		{heavy, "Player2Heavy"}
+	};*/
+
+
+
+
+	
+	//Dictionary dict;
+
+
+
+
 
     public controls testControl;
 
 	// Use this for initialization
 	void Start () {
+
+		/*if (player1)
+			dict = plr1Map;
+		else
+			dict = plr2Map;
+
+		Input.GetButtonDown (dict [light]);*/
+
         testControl.onHorizontalMov += horzMovEventReceived;
         testControl.onVerticalMov += vertMovEventReceived;
 		testControl.onHeavyAttack += heavyAttackEventReceived;

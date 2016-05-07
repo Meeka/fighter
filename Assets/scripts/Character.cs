@@ -22,8 +22,7 @@ public class Character : MonoBehaviour {
 	public Attack LightAttack;
 	public Attack HeavyAttack;
 
-	public Transform rightHand;
-	public Transform leftHand;
+	public Transform target;
 
 	public bool airborne;
 	bool block;
@@ -41,6 +40,7 @@ public class Character : MonoBehaviour {
 		controls.onLightAttack += DoLightAttack;
 		controls.onJump += DoJump;
 		controls.onBlock += Block;
+		controls.onDash += DoDash;
 		
 		animator.SetFloat ("walkForwardAnimSpeed", moveSpeed / walkAnimationFactor);
 		animator.SetFloat ("walkBackwardsAnimSpeed", -moveSpeed / walkAnimationFactor);
@@ -68,6 +68,14 @@ public class Character : MonoBehaviour {
 		body.velocity = transform.forward * horizontalMoveAmount * moveSpeed + body.velocity.y * Vector3.up;
 		if(!airborne)
 			targetHorizontalVelocity = 0;
+
+		//face target
+		Debug.Log (Vector3.Dot (target.position - transform.position, transform.forward));
+	}
+
+	public void Attacked(Attack attack)
+	{
+		Debug.Log ("Im hit!");
 	}
 
 	void DoAttack(Attack attack)
@@ -101,13 +109,16 @@ public class Character : MonoBehaviour {
 		behavior.SetAttack (LightAttack);
 	}
 
-	void HopForwards()
+	void DoDash(float amount)
 	{
+		targetHorizontalVelocity = - amount * 5;
+		horizontalMoveAmount = targetHorizontalVelocity;
+		if (amount > 0)
+			animator.SetTrigger ("dashBackward");
+		else
+			animator.SetTrigger ("dashForward");
 	}
 
-	void HopBackwards()
-	{
-	}
 
 	void DoJump()
 	{

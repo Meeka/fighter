@@ -1,14 +1,15 @@
 ﻿<Properties>
-  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\UIManagerScript.cs">
+  <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Character.cs">
     <Files>
-      <File FileName="Assets\scripts\test.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\controls.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\UIManagerScript.cs" Line="6" Column="23" />
+      <File FileName="Assets\scripts\test.cs" Line="58" Column="1" />
+      <File FileName="Assets\scripts\Character.cs" Line="108" Column="15" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
-    <BreakpointStore />
+    <BreakpointStore>
+      <Breakpoint file="C:\Users\graphic\Desktop\fighter\Assets\scripts\controls.cs" line="32" />
+    </BreakpointStore>
   </MonoDevelop.Ide.DebuggingService.Breakpoints>
   <MonoDevelop.Ide.DebuggingService.PinnedWatches />
 </Properties>
