@@ -18,37 +18,37 @@ public class test : MonoBehaviour {
 
     private void vertMovEventReceived(float direction)
     {
-        Debug.Log("We moved vertically by this much: " + direction.ToString());
+        Debug.Log("Player" + testControl.playerNum + " moved vertically by this much: " + direction.ToString());
     }
 
     private void horzMovEventReceived(float direction)
     {
-        Debug.Log("We moved horizontally by this much: " + direction.ToString());
+		Debug.Log("Player" + testControl.playerNum + " moved horizontally by this much: " + direction.ToString());
     }
 
 	private void heavyAttackEventReceived()
 	{
-		Debug.Log ("Heavy Attack!!");
+		Debug.Log ("Player" + testControl.playerNum + " Heavy Attack!!");
 	}
 
 	private void lightAttackEventReceived()
 	{
-		Debug.Log ("Light Attack!!");
+		Debug.Log ("Player" + testControl.playerNum + " Light Attack!!");
 	}
 
 	private void jumpEventReceived()
 	{
-		Debug.Log ("Jump!!");
+		Debug.Log ("Player" + testControl.playerNum + " Jump!!");
 	}
 
 	private void blockEventReceived()
 	{
-		Debug.Log ("Block!!");
+		Debug.Log ("Player" + testControl.playerNum + " Block!!");
 	}
 
 	private void dashEventReceived(float direction)
 	{
-		Debug.Log ("Dash!! in this direction:" + direction.ToString());
+		Debug.Log ("Player" + testControl.playerNum + " Dash!! in this direction:" + direction.ToString());
 	}
 	// Update is called once per frame
 	void Update () {
