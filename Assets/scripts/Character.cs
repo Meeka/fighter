@@ -205,17 +205,17 @@ public class Character : MonoBehaviour {
 
 	void DoDash(float amount)
 	{
-		if (!airborne) {
-			body.velocity = (new Vector3 (0, body.velocity.y + 3, Mathf.Sign(amount) * moveSpeed * 2));
 
-			if(IsWalking)
-			{
-				if (amount > 0 != !leftSide )
-					animator.SetTrigger ("dashBackward");
-				else
-					animator.SetTrigger ("dashForward");
-			}
+		body.velocity = (new Vector3 (0, body.velocity.y + 3, Mathf.Sign(amount) * moveSpeed * 2));
+
+		if(IsWalking || animator.GetCurrentAnimatorStateInfo (0).IsName ("airborne"))
+		{
+			if (amount > 0 != !leftSide )
+				animator.SetTrigger ("dashBackward");
+			else
+				animator.SetTrigger ("dashForward");
 		}
+
 	}
 
 	void DoJump()
@@ -236,7 +236,8 @@ public class Character : MonoBehaviour {
 	//Events from animations
 	public void jump()
 	{
-		body.velocity += transform.up * jumpHeight;
+		if(!airborne)
+			body.velocity += transform.up * jumpHeight;
 	}
 
 	public void createAttack()
