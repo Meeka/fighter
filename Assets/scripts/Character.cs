@@ -6,6 +6,7 @@ public class Character : MonoBehaviour {
 	public Rigidbody body;
 
 	public float HP;
+	float startHP;
 	public controls controls;
 	Attack currentAttack;
 
@@ -22,12 +23,12 @@ public class Character : MonoBehaviour {
 	public Attack LightAttack;
 	public Attack HeavyAttack;
 
-	public Transform rightHand;
-	public Transform leftHand;
+	public Transform target;
 
 	public bool airborne;
 	bool block;
 	bool blockDelay;
+	float roty;
 
 	behavior behavior;
 
@@ -36,14 +37,19 @@ public class Character : MonoBehaviour {
 		behavior = animator.GetBehaviour<behavior> ();
 
 		controls.onHorizontalMov += HorizontalMove; 
-		//controls.onVerticalMov += VerticalMove; 
+		controls.onVerticalMov += VerticalMove; 
 		controls.onHeavyAttack += DoHeavyAttack;
 		controls.onLightAttack += DoLightAttack;
 		controls.onJump += DoJump;
 		controls.onBlock += Block;
+		controls.onDash += DoDash;
 		
 		animator.SetFloat ("walkForwardAnimSpeed", moveSpeed / walkAnimationFactor);
 		animator.SetFloat ("walkBackwardsAnimSpeed", -moveSpeed / walkAnimationFactor);
+
+		roty = transform.eulerAngles.y;
+
+		startHP = HP;
 	}
 	
 	// Update is called once per frame
@@ -65,9 +71,26 @@ public class Character : MonoBehaviour {
 
 				
 		horizontalMoveAmount = Mathf.SmoothDamp (horizontalMoveAmount, targetHorizontalVelocity, ref velocityhorizontalSmoothSpeed, 0.1f);
-		body.velocity = transform.forward * horizontalMoveAmount * moveSpeed + body.velocity.y * Vector3.up;
+		body.velocity = Vector3.forward * horizontalMoveAmount * moveSpeed + body.velocity.y * Vector3.up;
 		if(!airborne)
 			targetHorizontalVelocity = 0;
+
+		//face target(other player)
+		if ((target.position - transform.position).z < 0)
+			roty = Mathf.Clamp (roty + 5, 0, 180);
+		else
+			roty = Mathf.Clamp (roty - 5, 0, 180);
+
+		transform.rotation = Quaternion.Euler(0, roty, 0);
+
+		if (HP <= 0)
+			animator.SetBool ("dead", true);
+	}
+
+	public void Attacked(Attack attack)
+	{
+		HP = Mathf.Clamp(HP - attack.damage, 0, startHP);
+		body.AddForce((attack.transform.position - transform.position) * attack.damage * 1000);
 	}
 
 	void DoAttack(Attack attack)
@@ -79,14 +102,13 @@ public class Character : MonoBehaviour {
 	{
 
 		if (!airborne)
-			targetHorizontalVelocity = -amount;
+			targetHorizontalVelocity = amount;
 
 	}
 	void VerticalMove(float amount)
 	{
-		if (!airborne) {
-			transform.position += transform.right * amount * moveSpeed;
-
+		if (!airborne && amount > 0) {
+			animator.SetTrigger("jump");
 		}
 	}
 	void DoHeavyAttack()
@@ -101,12 +123,14 @@ public class Character : MonoBehaviour {
 		behavior.SetAttack (LightAttack);
 	}
 
-	void HopForwards()
+	void DoDash(float amount)
 	{
-	}
-
-	void HopBackwards()
-	{
+		targetHorizontalVelocity = amount * 5;
+		horizontalMoveAmount = targetHorizontalVelocity;
+		if (amount > 0)
+			animator.SetTrigger ("dashBackward");
+		else
+			animator.SetTrigger ("dashForward");
 	}
 
 	void DoJump()
@@ -123,6 +147,8 @@ public class Character : MonoBehaviour {
 		blockDelay = true;
 	}
 
+
+	//Events from animations
 	public void jump()
 	{
 		body.velocity += transform.up * jumpHeight;
@@ -136,5 +162,11 @@ public class Character : MonoBehaviour {
 	public void destroyAttack()
 	{
 		behavior.destroyAttack ();
+	}
+
+	public void dead()
+	{
+		//animator.enabled = false;
+		animator.speed = 0;
 	}
 }

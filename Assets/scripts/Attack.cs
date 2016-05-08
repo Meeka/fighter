@@ -14,7 +14,12 @@ public class Attack : MonoBehaviour
 		if (other != sourceChar) 
 		{
 			Debug.Log("Hit! " + other.name);
-			other.attachedRigidbody.AddForce((other.transform.position - transform.position) * damage * 1000);
+
+			Character character = other.GetComponent<Character>();
+			if(character != null)
+				character.Attacked(this);
+			else
+				other.attachedRigidbody.AddForce((other.transform.position - transform.position) * damage * 1000);
 		}
 	}
 }
