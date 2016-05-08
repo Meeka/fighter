@@ -19,7 +19,7 @@ public class Attack : MonoBehaviour
 			if(character != null)
 				character.Attacked(this);
 			else
-				other.attachedRigidbody.AddForce((other.transform.position - transform.position) * damage * 1000);
+				other.attachedRigidbody.AddForce((other.transform.position - transform.position) * damage * 10, ForceMode.Impulse);
 		}
 	}
 }

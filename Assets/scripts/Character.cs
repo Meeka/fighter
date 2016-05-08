@@ -6,7 +6,7 @@ public class Character : MonoBehaviour {
 	public Rigidbody body;
 
 	public float HP;
-	float startHP;
+	public float startHP;
 	public controls controls;
 	Attack currentAttack;
 
@@ -63,7 +63,7 @@ public class Character : MonoBehaviour {
 	// Update is called once per frame
 	void Update () {
 
-		airborne = !Physics.Raycast (new Ray (transform.position + Vector3.up * 0.1f, Vector3.down), 0.11f);
+		airborne = !Physics.Raycast (new Ray (transform.position + Vector3.up * 0.1f, Vector3.down), 0.15f);
 
 		if (!blockDelay)
 			block = false;
@@ -88,22 +88,42 @@ public class Character : MonoBehaviour {
 			targetHorizontalVelocity = 0;
 
 		//face target(other player)
-		leftSide = (target.position - transform.position).z < 0;
-		if (leftSide)
-			roty = Mathf.Clamp (roty + 5, 0, 180);
-		else
-			roty = Mathf.Clamp (roty - 5, 0, 180);
+		if (HP > 0) {
+			leftSide = (target.position - transform.position).z < 0;
+			if (leftSide)
+				roty = Mathf.Clamp (roty + 5, 0, 180);
+			else
+				roty = Mathf.Clamp (roty - 5, 0, 180);
 
-		transform.rotation = Quaternion.Euler(0, roty, 0);
-
+			transform.rotation = Quaternion.Euler (0, roty, 0);
+		}
 		if (HP <= 0)
 			animator.SetBool ("dead", true);
+
 	}
 
+	//hit by a object
+	void OnCollisionEnter(Collision collision) 
+	{
+		//other player
+		if (collision.gameObject.GetComponent<Character> ())
+			return;
+
+		Rigidbody body = collision.rigidbody;
+
+		if(body != null)
+			Debug.Log (body.velocity.magnitude);
+
+		if(body == null || body.velocity.magnitude < 4)
+		   return;
+
+		HP -= body.mass * body.velocity.magnitude / 20;
+	}
+		
 	public void Attacked(Attack attack)
 	{
 		HP = Mathf.Clamp(HP - attack.damage, 0, startHP);
-		body.AddForce((attack.transform.position - transform.position) * attack.damage * 1000);
+		body.AddForce((attack.transform.position - transform.position) * attack.damage * 10, ForceMode.Impulse);
 	}
 
 	void DoAttack(Attack attack)

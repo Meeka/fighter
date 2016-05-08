@@ -4,6 +4,6 @@ using System.Collections;
 public class StartScreenManager : MonoBehaviour {
 
 	public void StartGame() {
-		Application.LoadLevel("FightScene");
+		Application.LoadLevel("main");
 	}
 }

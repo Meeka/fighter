@@ -4,6 +4,9 @@ using UnityEngine.UI;
 
 public class FightSceneManager : MonoBehaviour {
 
+	public Character player1;
+	public Character player2;
+
 	public RectTransform player1HP;
 	public RectTransform player2HP;
 
@@ -36,14 +39,23 @@ public class FightSceneManager : MonoBehaviour {
 	
 	// Update is called once per frame
 	void Update () {
+		
+		player1Percent = Mathf.Clamp01(player1.HP / player1.startHP);
+		player2Percent = Mathf.Clamp01(player2.HP / player2.startHP);
 
-		player1HP.pivot.Set ( 1/player1Percent, 0.5f);
-		player2HP.pivot.Set ( 1/player2Percent, 0.5f);
+		player1HP.pivot = new Vector2( 1 - player1Percent, 0.5f);
+		player2HP.pivot = new Vector2( 1 - player2Percent, 0.5f);
 
-		if (gameFinished) {
+		if (player1Percent <= 0) {
 			gameOverBtn.SetTrigger("play");
-			winner.text = playerWin + " WINS!!!";
+			winner.text = player1Name + " WINS!!!";
 			restartButton.gameObject.SetActive(true);
+		}else if(player2Percent <= 0)
+		{
+			gameOverBtn.SetTrigger("play");
+			winner.text = player2Name + " WINS!!!";
+			restartButton.gameObject.SetActive(true);
+
 		}
 	}
 
