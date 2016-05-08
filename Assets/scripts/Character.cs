@@ -29,8 +29,16 @@ public class Character : MonoBehaviour {
 	bool block;
 	bool blockDelay;
 	float roty;
+	bool leftSide;
 
 	behavior behavior;
+
+	bool IsWalking {
+		get {
+			return animator.GetCurrentAnimatorStateInfo (0).IsName ("WalkBackwards") ||
+				animator.GetCurrentAnimatorStateInfo (0).IsName ("WalkForward");
+		}
+	}
 
 	// Use this for initialization
 	void Start () {
@@ -62,7 +70,11 @@ public class Character : MonoBehaviour {
 
 		blockDelay = false;
 
-		animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
+		if(!leftSide)
+			animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
+		else
+			animator.SetFloat ("forwardSpeed", -horizontalMoveAmount);
+
 		animator.SetBool ("airborne", airborne);
 
 
@@ -76,7 +88,8 @@ public class Character : MonoBehaviour {
 			targetHorizontalVelocity = 0;
 
 		//face target(other player)
-		if ((target.position - transform.position).z < 0)
+		leftSide = (target.position - transform.position).z < 0;
+		if (leftSide)
 			roty = Mathf.Clamp (roty + 5, 0, 180);
 		else
 			roty = Mathf.Clamp (roty - 5, 0, 180);
@@ -125,17 +138,20 @@ public class Character : MonoBehaviour {
 
 	void DoDash(float amount)
 	{
-		targetHorizontalVelocity = amount * 5;
-		horizontalMoveAmount = targetHorizontalVelocity;
-		if (amount > 0)
-			animator.SetTrigger ("dashBackward");
-		else
-			animator.SetTrigger ("dashForward");
+		if (!airborne) {
+			targetHorizontalVelocity = amount * 5;
+			horizontalMoveAmount = targetHorizontalVelocity;
+
+			if (amount > 0 != !leftSide && animator.GetCurrentAnimatorStateInfo(0).IsName("WalkBackwards"))
+				animator.SetTrigger ("dashBackward");
+			else if(animator.GetCurrentAnimatorStateInfo(0).IsName("WalkForward"))
+				animator.SetTrigger ("dashForward");
+		}
 	}
 
 	void DoJump()
 	{
-		if (!airborne) 
+		if (!airborne && IsWalking) 
 		{
 			animator.SetTrigger("jump");
 		}
@@ -162,11 +178,5 @@ public class Character : MonoBehaviour {
 	public void destroyAttack()
 	{
 		behavior.destroyAttack ();
-	}
-
-	public void dead()
-	{
-		//animator.enabled = false;
-		animator.speed = 0;
 	}
 }
