@@ -70,8 +70,8 @@ public class controls : MonoBehaviour {
 	// Update is called once per frame
 	void Update () 
 	{
-		bool buttonPressed = tempHAxis < Input.GetAxis (dict [input.horizontal]);
-		bool buttonReleased = tempHAxis > Input.GetAxis (dict [input.horizontal]);
+		bool buttonPressed = tempHAxis < Mathf.Abs(Input.GetAxis (dict [input.horizontal]));
+		bool buttonReleased = tempHAxis > Mathf.Abs(Input.GetAxis (dict [input.horizontal]));
 
 		//first press
 		if (buttonPressed && ButtonCount == 0)
@@ -94,7 +94,7 @@ public class controls : MonoBehaviour {
 			ButtonCount = 0;
 		}
 
-		tempHAxis = Input.GetAxis (dict [input.horizontal]);
+		tempHAxis = Mathf.Abs(Input.GetAxis (dict [input.horizontal]));
 
 		if (Input.GetAxis(dict [input.horizontal]) != 0 && onHorizontalMov != null)
 		{

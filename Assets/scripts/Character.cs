@@ -32,6 +32,7 @@ public class Character : MonoBehaviour {
 	bool blockDelay;
 	float roty;
 	bool leftSide;
+	float invincibilityFrames;
 
 	behavior behavior;
 
@@ -128,6 +129,7 @@ public class Character : MonoBehaviour {
 		if (HP <= 0)
 			animator.SetBool ("dead", true);
 
+		invincibilityFrames -= Time.deltaTime;
 	}
 
 	//hit by a object
@@ -144,9 +146,11 @@ public class Character : MonoBehaviour {
 
 		if(body == null || body.velocity.magnitude < 4)
 		   return;
-
-		float damage = Mathf.Clamp(body.mass * body.velocity.magnitude / 20, 0, 50);
-		HP -= damage;
+		
+		float damage = Mathf.Clamp (body.mass * body.velocity.magnitude / 20, 0, 50);
+		if (invincibilityFrames <= 0) {
+			HP -= damage;
+		}
 
 		if(damage <= 20)
 			animator.SetTrigger ("lightHit");
@@ -154,6 +158,7 @@ public class Character : MonoBehaviour {
 			animator.SetTrigger ("heavyHit");
 	}
 		
+	//hit by an attack
 	public void Attacked(Attack attack)
 	{
 		HP = Mathf.Clamp(HP - attack.damage, 0, startHP);
@@ -167,6 +172,7 @@ public class Character : MonoBehaviour {
 	void DoAttack(Attack attack)
 	{
 		currentAttack = attack;
+
 	}
 	
 	void HorizontalMove(float amount)
@@ -236,6 +242,7 @@ public class Character : MonoBehaviour {
 	public void createAttack()
 	{
 		behavior.createAttack (GetComponent<Collider>());
+		invincibilityFrames = 0.3f;
 	}
 	
 	public void destroyAttack()

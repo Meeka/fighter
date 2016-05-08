@@ -1,16 +1,16 @@
 ﻿<Properties>
   <MonoDevelop.Ide.Workspace ActiveConfiguration="Debug" PreferredExecutionTarget="MonoDevelop.Default" />
-  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\Character.cs">
+  <MonoDevelop.Ide.Workbench ActiveDocument="Assets\scripts\behaviors\behavior.cs">
     <Files>
-      <File FileName="Assets\scripts\Character.cs" Line="83" Column="89" />
+      <File FileName="Assets\scripts\Character.cs" Line="245" Column="30" />
       <File FileName="Assets\scripts\test.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\controls.cs" Line="77" Column="41" />
       <File FileName="Assets\scripts\FightSceneManager.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\StartScreenManager.cs" Line="1" Column="1" />
       <File FileName="Assets\scripts\Attack.cs" Line="1" Column="1" />
-      <File FileName="Assets\scripts\behaviors\hitBehavior.cs" Line="15" Column="53" />
-      <File FileName="Assets\scripts\behaviors\behavior.cs" Line="34" Column="38" />
-      <File FileName="Assets\scripts\Cam.cs" Line="17" Column="1" />
+      <File FileName="Assets\scripts\behaviors\hitBehavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\behaviors\behavior.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\Cam.cs" Line="1" Column="1" />
+      <File FileName="Assets\scripts\DropRandomThings.cs" Line="12" Column="17" />
     </Files>
   </MonoDevelop.Ide.Workbench>
   <MonoDevelop.Ide.DebuggingService.Breakpoints>
