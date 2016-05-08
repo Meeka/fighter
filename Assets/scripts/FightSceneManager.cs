@@ -48,12 +48,12 @@ public class FightSceneManager : MonoBehaviour {
 
 		if (player1Percent <= 0) {
 			gameOverBtn.SetTrigger("play");
-			winner.text = player1Name + " WINS!!!";
+			winner.text = player2Name + " WINS!!!";
 			restartButton.gameObject.SetActive(true);
 		}else if(player2Percent <= 0)
 		{
 			gameOverBtn.SetTrigger("play");
-			winner.text = player2Name + " WINS!!!";
+			winner.text = player1Name + " WINS!!!";
 			restartButton.gameObject.SetActive(true);
 
 		}

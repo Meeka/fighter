@@ -9,6 +9,8 @@ public class Attack : MonoBehaviour
 	public GameObject particles;            // Prefab of the particle system to play in the state.
 	public AvatarIKGoal attackLimb;
 
+	public float forceMultiplier = 20;
+
 	void OnTriggerEnter(Collider other)
 	{
 		if (other != sourceChar) 
@@ -19,7 +21,7 @@ public class Attack : MonoBehaviour
 			if(character != null)
 				character.Attacked(this);
 			else
-				other.attachedRigidbody.AddForce((other.transform.position - transform.position) * damage * 10, ForceMode.Impulse);
+				other.attachedRigidbody.AddForce((other.transform.position - transform.position) * forceMultiplier, ForceMode.Impulse);
 		}
 	}
 }

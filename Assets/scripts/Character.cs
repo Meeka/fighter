@@ -19,6 +19,7 @@ public class Character : MonoBehaviour {
 	public float moveSpeed;
 	float walkAnimationFactor = 3;
 	public float jumpHeight;
+	public float knockbackFactor = 100;
 
 	public Attack LightAttack;
 	public Attack HeavyAttack;
@@ -71,9 +72,11 @@ public class Character : MonoBehaviour {
 		blockDelay = false;
 
 		if(!leftSide)
-			animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
+			animator.SetFloat ("forwardSpeed", body.velocity.z);
+			//animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
 		else
-			animator.SetFloat ("forwardSpeed", -horizontalMoveAmount);
+			animator.SetFloat ("forwardSpeed", -body.velocity.z);
+			//animator.SetFloat ("forwardSpeed", -horizontalMoveAmount);
 
 		animator.SetBool ("airborne", airborne);
 
@@ -82,10 +85,10 @@ public class Character : MonoBehaviour {
 			animator.ResetTrigger ("jump");
 
 				
-		horizontalMoveAmount = Mathf.SmoothDamp (horizontalMoveAmount, targetHorizontalVelocity, ref velocityhorizontalSmoothSpeed, 0.1f);
+		/*horizontalMoveAmount = Mathf.SmoothDamp (horizontalMoveAmount, targetHorizontalVelocity, ref velocityhorizontalSmoothSpeed, 0.1f);
 		body.velocity = Vector3.forward * horizontalMoveAmount * moveSpeed + body.velocity.y * Vector3.up;
 		if(!airborne)
-			targetHorizontalVelocity = 0;
+			targetHorizontalVelocity = 0;*/
 
 		//face target(other player)
 		if (HP > 0) {
@@ -122,8 +125,15 @@ public class Character : MonoBehaviour {
 		
 	public void Attacked(Attack attack)
 	{
+		//transform.position = new Vector3 (transform.position.x, transform.position.y + 0.1f, transform.position.z);
+
 		HP = Mathf.Clamp(HP - attack.damage, 0, startHP);
-		body.AddForce((attack.transform.position - transform.position) * attack.damage * 10, ForceMode.Impulse);
+		Vector3 attackAngle = (GetComponent<Collider>().bounds.center - attack.transform.position) * attack.forceMultiplier * knockbackFactor;
+		attackAngle = new Vector3 (0, 100, attackAngle.z);
+		horizontalMoveAmount = attackAngle.z;
+		targetHorizontalVelocity = attackAngle.z;
+		Debug.Log ("Hit Force: " + attackAngle);
+		body.AddForce(attackAngle, ForceMode.Impulse);
 	}
 
 	void DoAttack(Attack attack)
@@ -133,9 +143,12 @@ public class Character : MonoBehaviour {
 	
 	void HorizontalMove(float amount)
 	{
-
-		if (!airborne)
-			targetHorizontalVelocity = amount;
+		float h = body.velocity.z;
+		h += amount * moveSpeed;
+		h = Mathf.Clamp (h, -Mathf.Abs (amount * moveSpeed), Mathf.Abs (amount * moveSpeed));
+		if (!airborne && Mathf.Abs(body.velocity.z) < Mathf.Abs(amount * moveSpeed))
+			body.velocity = (new Vector3 (0, body.velocity.y, h));
+			//targetHorizontalVelocity = amount;
 
 	}
 	void VerticalMove(float amount)
