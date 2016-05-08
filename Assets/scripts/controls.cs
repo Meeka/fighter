@@ -76,7 +76,7 @@ public class controls : MonoBehaviour {
 		//first press
 		if (buttonPressed && ButtonCount == 0)
 		{
-			ButtonCooler = 0.5f;
+			ButtonCooler = 0.2f;
 			ButtonCount += 1;
 		}
 		//first release

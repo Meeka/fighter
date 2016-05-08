@@ -9,7 +9,8 @@ public class Attack : MonoBehaviour
 	public GameObject particles;            // Prefab of the particle system to play in the state.
 	public AvatarIKGoal attackLimb;
 
-	public float forceMultiplier = 20;
+	public float forceMultiplier = 10;
+	public Vector3 HitAngle;
 
 	void OnTriggerEnter(Collider other)
 	{
@@ -18,10 +19,15 @@ public class Attack : MonoBehaviour
 			Debug.Log("Hit! " + other.name);
 
 			Character character = other.GetComponent<Character>();
+
+			Vector3 HitAngleNew = HitAngle.normalized;
+			if(other.transform.position.z < transform.position.z)
+				HitAngleNew = new Vector3(0, HitAngleNew.y, HitAngleNew.z * -1);
+
 			if(character != null)
 				character.Attacked(this);
-			else
-				other.attachedRigidbody.AddForce((other.transform.position - transform.position) * forceMultiplier, ForceMode.Impulse);
+
+			other.attachedRigidbody.AddForce(HitAngleNew * forceMultiplier, ForceMode.Impulse);
 		}
 	}
 }

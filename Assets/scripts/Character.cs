@@ -4,6 +4,7 @@ using System.Collections;
 public class Character : MonoBehaviour {
 
 	public Rigidbody body;
+	Collider collider;
 
 	public float HP;
 	public float startHP;
@@ -59,12 +60,40 @@ public class Character : MonoBehaviour {
 		roty = transform.eulerAngles.y;
 
 		startHP = HP;
+		collider = GetComponent<Collider> (); 
 	}
-	
+
+
 	// Update is called once per frame
 	void Update () {
+		float offset = 0.6f;
+		float length = 0.5f;
 
-		airborne = !Physics.Raycast (new Ray (transform.position + Vector3.up * 0.1f, Vector3.down), 0.15f);
+		Vector3 origin1 = collider.bounds.center + Vector3.down * collider.bounds.extents.y * 0.8f;
+		Vector3 direction1 = Vector3.down * length;
+
+		Vector3 origin2 = collider.bounds.center + Vector3.down * 0.4f + Vector3.forward * collider.bounds.extents.y * 0.4f;
+		Vector3 direction2 = (Vector3.down + Vector3.forward * collider.bounds.extents.y * 0.4f)  * length;
+		Vector3 origin3 = collider.bounds.center + Vector3.down * 0.4f - Vector3.forward * collider.bounds.extents.y * 0.4f;
+		Vector3 direction3 = (Vector3.down - Vector3.forward * collider.bounds.extents.y * 0.4f)  * length;
+		
+		Vector3 origin4 = collider.bounds.center + Vector3.forward * collider.bounds.extents.y * 0.8f;
+		Vector3 direction4 = (Vector3.down + Vector3.forward * collider.bounds.extents.y * 0.8f)  * length;
+		Vector3 origin5 = collider.bounds.center - Vector3.forward * collider.bounds.extents.y * 0.8f;
+		Vector3 direction5 = (Vector3.down - Vector3.forward * collider.bounds.extents.y * 0.8f)  * length;
+
+
+		airborne = !Physics.Raycast (new Ray (origin1, direction1), length)
+			&& !Physics.Raycast (new Ray (origin2, direction2), length)
+				&& !Physics.Raycast (new Ray (origin3, direction3), length)
+				&& !Physics.Raycast (new Ray (origin4, direction4), length)
+				&& !Physics.Raycast (new Ray (origin5, direction5), length);
+		
+		Debug.DrawLine(origin1, origin1 + direction1);
+		Debug.DrawLine(origin2, origin2 + direction2);
+		Debug.DrawLine(origin3, origin3 + direction3);
+		Debug.DrawLine(origin4, origin4 + direction4);
+		Debug.DrawLine(origin5, origin5 + direction5);
 
 		if (!blockDelay)
 			block = false;
@@ -84,11 +113,7 @@ public class Character : MonoBehaviour {
 		if (airborne)
 			animator.ResetTrigger ("jump");
 
-				
-		/*horizontalMoveAmount = Mathf.SmoothDamp (horizontalMoveAmount, targetHorizontalVelocity, ref velocityhorizontalSmoothSpeed, 0.1f);
-		body.velocity = Vector3.forward * horizontalMoveAmount * moveSpeed + body.velocity.y * Vector3.up;
-		if(!airborne)
-			targetHorizontalVelocity = 0;*/
+
 
 		//face target(other player)
 		if (HP > 0) {
@@ -120,20 +145,23 @@ public class Character : MonoBehaviour {
 		if(body == null || body.velocity.magnitude < 4)
 		   return;
 
-		HP -= body.mass * body.velocity.magnitude / 20;
+		float damage = Mathf.Clamp(body.mass * body.velocity.magnitude / 20, 0, 50);
+		HP -= damage;
+
+		if(damage <= 20)
+			animator.SetTrigger ("lightHit");
+		else
+			animator.SetTrigger ("heavyHit");
 	}
 		
 	public void Attacked(Attack attack)
 	{
-		//transform.position = new Vector3 (transform.position.x, transform.position.y + 0.1f, transform.position.z);
-
 		HP = Mathf.Clamp(HP - attack.damage, 0, startHP);
-		Vector3 attackAngle = (GetComponent<Collider>().bounds.center - attack.transform.position) * attack.forceMultiplier * knockbackFactor;
-		attackAngle = new Vector3 (0, 100, attackAngle.z);
-		horizontalMoveAmount = attackAngle.z;
-		targetHorizontalVelocity = attackAngle.z;
-		Debug.Log ("Hit Force: " + attackAngle);
-		body.AddForce(attackAngle, ForceMode.Impulse);
+
+		if(attack.damage <= 20)
+			animator.SetTrigger ("lightHit");
+		else
+			animator.SetTrigger ("heavyHit");
 	}
 
 	void DoAttack(Attack attack)
@@ -172,13 +200,15 @@ public class Character : MonoBehaviour {
 	void DoDash(float amount)
 	{
 		if (!airborne) {
-			targetHorizontalVelocity = amount * 5;
-			horizontalMoveAmount = targetHorizontalVelocity;
+			body.velocity = (new Vector3 (0, body.velocity.y + 3, Mathf.Sign(amount) * moveSpeed * 2));
 
-			if (amount > 0 != !leftSide && animator.GetCurrentAnimatorStateInfo(0).IsName("WalkBackwards"))
-				animator.SetTrigger ("dashBackward");
-			else if(animator.GetCurrentAnimatorStateInfo(0).IsName("WalkForward"))
-				animator.SetTrigger ("dashForward");
+			if(IsWalking)
+			{
+				if (amount > 0 != !leftSide )
+					animator.SetTrigger ("dashBackward");
+				else
+					animator.SetTrigger ("dashForward");
+			}
 		}
 	}
 
