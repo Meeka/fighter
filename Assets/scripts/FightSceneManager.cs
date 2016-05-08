@@ -28,6 +28,8 @@ public class FightSceneManager : MonoBehaviour {
 
 	public Animator gameOverBtn;
 
+	float timer;
+	public Text timerText;
 
 	// Use this for initialization
 	void Start () {
@@ -35,6 +37,8 @@ public class FightSceneManager : MonoBehaviour {
 		player2UIName.text = player2Name;
 
 		restartButton.gameObject.SetActive(false);
+
+		timer = 90;
 	}
 	
 	// Update is called once per frame
@@ -46,17 +50,27 @@ public class FightSceneManager : MonoBehaviour {
 		player1HP.pivot = new Vector2( 1 - player1Percent, 0.5f);
 		player2HP.pivot = new Vector2( 1 - player2Percent, 0.5f);
 
-		if (player1Percent <= 0) {
-			gameOverBtn.SetTrigger("play");
+		if (player1Percent <= 0 || (timer <= 0 && player2Percent > player1Percent)) {
+			gameOverBtn.SetTrigger ("play");
 			winner.text = player2Name + " WINS!!!";
-			restartButton.gameObject.SetActive(true);
-		}else if(player2Percent <= 0)
-		{
-			gameOverBtn.SetTrigger("play");
+			restartButton.gameObject.SetActive (true);
+		} else if (player2Percent <= 0 || (timer <= 0 && player2Percent < player1Percent)) {
+			gameOverBtn.SetTrigger ("play");
 			winner.text = player1Name + " WINS!!!";
-			restartButton.gameObject.SetActive(true);
+			restartButton.gameObject.SetActive (true);
 
+		} else if (timer <= 0 && player2Percent == player1Percent) {
+			gameOverBtn.SetTrigger ("play");
+			winner.text = "DRAW!!!";
+			restartButton.gameObject.SetActive (true);
 		}
+
+		timer -= Time.deltaTime;
+
+		timerText.text = Mathf.Ceil (Mathf.Max(0, timer)).ToString();
+
+		if (Input.GetKey (KeyCode.Escape))
+			Application.Quit ();
 	}
 
 	public void RestartGame()

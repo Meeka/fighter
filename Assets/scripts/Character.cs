@@ -78,9 +78,9 @@ public class Character : MonoBehaviour {
 		Vector3 direction3 = (Vector3.down - Vector3.forward * collider.bounds.extents.y * 0.4f)  * length;
 		
 		Vector3 origin4 = collider.bounds.center + Vector3.forward * collider.bounds.extents.y * 0.8f;
-		Vector3 direction4 = (Vector3.down + Vector3.forward * collider.bounds.extents.y * 0.8f)  * length;
+		Vector3 direction4 = (Vector3.down + Vector3.forward * collider.bounds.extents.y * 0.2f)  * length;
 		Vector3 origin5 = collider.bounds.center - Vector3.forward * collider.bounds.extents.y * 0.8f;
-		Vector3 direction5 = (Vector3.down - Vector3.forward * collider.bounds.extents.y * 0.8f)  * length;
+		Vector3 direction5 = (Vector3.down - Vector3.forward * collider.bounds.extents.y * 0.2f)  * length;
 
 
 		airborne = !Physics.Raycast (new Ray (origin1, direction1), length)
@@ -139,8 +139,8 @@ public class Character : MonoBehaviour {
 
 		Rigidbody body = collision.rigidbody;
 
-		if(body != null)
-			Debug.Log (body.velocity.magnitude);
+		//if(body != null)
+		//	Debug.Log (body.velocity.magnitude);
 
 		if(body == null || body.velocity.magnitude < 4)
 		   return;
