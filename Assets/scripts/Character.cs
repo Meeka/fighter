@@ -33,6 +33,7 @@ public class Character : MonoBehaviour {
 	float roty;
 	bool leftSide;
 	float invincibilityFrames;
+    bool airDashCoolDown;
 
 	behavior behavior;
 
@@ -67,7 +68,7 @@ public class Character : MonoBehaviour {
 
 	// Update is called once per frame
 	void Update () {
-		float offset = 0.6f;
+
 		float length = 0.5f;
 
 		Vector3 origin1 = collider.bounds.center + Vector3.down * collider.bounds.extents.y * 0.8f;
@@ -90,17 +91,12 @@ public class Character : MonoBehaviour {
 				&& !Physics.Raycast (new Ray (origin4, direction4), length)
 				&& !Physics.Raycast (new Ray (origin5, direction5), length);
 		
-		Debug.DrawLine(origin1, origin1 + direction1);
+		/*Debug.DrawLine(origin1, origin1 + direction1);
 		Debug.DrawLine(origin2, origin2 + direction2);
 		Debug.DrawLine(origin3, origin3 + direction3);
 		Debug.DrawLine(origin4, origin4 + direction4);
-		Debug.DrawLine(origin5, origin5 + direction5);
-
-		if (!blockDelay)
-			block = false;
-
-		blockDelay = false;
-
+		Debug.DrawLine(origin5, origin5 + direction5);*/
+        
 		if(!leftSide)
 			animator.SetFloat ("forwardSpeed", body.velocity.z);
 			//animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
@@ -110,6 +106,8 @@ public class Character : MonoBehaviour {
 
 		animator.SetBool ("airborne", airborne);
 
+        if (!airborne)
+            airDashCoolDown = false;
 
 		if (airborne)
 			animator.ResetTrigger ("jump");
@@ -205,11 +203,17 @@ public class Character : MonoBehaviour {
 
 	void DoDash(float amount)
 	{
+        if (airborne && airDashCoolDown)
+            return;
+
+        if (airborne)
+            airDashCoolDown = true;
 
 		body.velocity = (new Vector3 (0, body.velocity.y + 3, Mathf.Sign(amount) * moveSpeed * 2));
 
-		if(IsWalking || animator.GetCurrentAnimatorStateInfo (0).IsName ("airborne"))
+		if(IsWalking || airborne)
 		{
+
 			if (amount > 0 != !leftSide )
 				animator.SetTrigger ("dashBackward");
 			else

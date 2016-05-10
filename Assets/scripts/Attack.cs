@@ -16,17 +16,16 @@ public class Attack : MonoBehaviour
 	{
 		if (other != sourceChar) 
 		{
-			Debug.Log("Hit! " + other.name);
-
-			Character character = other.GetComponent<Character>();
 
 			Vector3 HitAngleNew = HitAngle.normalized;
 			if(other.transform.position.z < transform.position.z)
 				HitAngleNew = new Vector3(0, HitAngleNew.y, HitAngleNew.z * -1);
 
-			if(character != null)
-				character.Attacked(this);
-
+			Character character = other.GetComponent<Character>();
+            if (character != null)
+                character.Attacked(this);
+            else
+                other.GetComponent<Thing>().Attacked(this);
 			other.attachedRigidbody.AddForce(HitAngleNew * forceMultiplier, ForceMode.Impulse);
 		}
 	}

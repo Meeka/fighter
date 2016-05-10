@@ -58,7 +58,8 @@ public class behavior : StateMachineBehaviour {
 			attack = Instantiate<Attack> (attackPrefab);
 			attack.sourceChar = collider;
 			attack.transform.position = collider.transform.position;
-			Debug.Log("Attack" + attack.transform.position);
+            attack.transform.rotation = collider.transform.rotation;
+
 			if(attack.particles != null)
 			{
 				// Instantiate the particles and set up references to their components.
