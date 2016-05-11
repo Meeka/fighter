@@ -73,6 +73,7 @@
     <Compile Include="Assets\scripts\Character.cs" />
     <Compile Include="Assets\scripts\DropRandomThings.cs" />
     <Compile Include="Assets\scripts\FightSceneManager.cs" />
+    <Compile Include="Assets\scripts\Pulse.cs" />
     <Compile Include="Assets\scripts\SpawnRandomThings.cs" />
     <Compile Include="Assets\scripts\StartScreenManager.cs" />
     <Compile Include="Assets\scripts\Thing.cs" />
