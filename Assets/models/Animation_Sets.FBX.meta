@@ -3,7 +3,7 @@ guid: de15b4c91d4e69249b95d7eedc4973e2
 timeCreated: 1462631205
 licenseType: Free
 ModelImporter:
-  serializedVersion: 18
+  serializedVersion: 19
   fileIDToRecycleName:
     100000: //RootNode
     100002: BigGuy
@@ -92,10 +92,11 @@ ModelImporter:
     7400014: Land
     7400016: LightHit
     7400018: HeavyHit
-    7400020: LightAttack
-    7400022: HeavyAttack
+    7400020: UnusedAttack
+    7400022: LightAttack
     7400024: Dead
     7400026: Stand
+    7400028: HeavyAttack
     9500000: //RootNode
     13700000: BigGuy
   materials:
@@ -105,26 +106,21 @@ ModelImporter:
   animations:
     legacyGenerateAnimations: 4
     bakeSimulation: 0
+    resampleRotations: 1
     optimizeGameObjects: 0
     motionNodeName: 
     animationImportErrors: 
-    animationImportWarnings: 'MuscleClip ''Animation_Sets'' conversion warning: ''Character_Root/Spine00/Spine01/Spine02''
-      is between humanoid transforms and has rotation animation. This might lower
-      retargeting quality.
-
-
-      MuscleClip ''Animation_Sets'' conversion warning: ''Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04''
-      is between humanoid transforms and has rotation animation. This might lower
-      retargeting quality.
-
-
-'
+    animationImportWarnings: "\nClip 'Take 001' has import animation warnings that
+      might lower retargeting quality:\nNote: Activate translation DOF on avatar to
+      improve retargeting quality.\n\t'Spine02' is inbetween humanoid transforms and
+      has rotation animation that will be discarded.\n\t'Spine04' is inbetween humanoid
+      transforms and has rotation animation that will be discarded.\n"
     animationRetargetingWarnings: 
     animationDoRetargetingWarnings: 0
     animationCompression: 3
-    animationRotationError: .5
-    animationPositionError: .5
-    animationScaleError: .5
+    animationRotationError: 0.5
+    animationPositionError: 0.5
+    animationScaleError: 0.5
     animationWrapMode: 0
     extraExposedTransformPaths: []
     clipAnimations:
@@ -138,6 +134,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
@@ -230,6 +227,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 4.7999997
     - serializedVersion: 16
       name: HopForward
       takeName: Take 001
@@ -240,6 +238,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -332,6 +331,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: HopBackwards
       takeName: Take 001
@@ -342,6 +342,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -434,6 +435,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Walk
       takeName: Take 001
@@ -444,6 +446,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
@@ -536,6 +539,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 4.7999997
     - serializedVersion: 16
       name: WalkBackwards
       takeName: Take 001
@@ -546,6 +550,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -638,6 +643,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Jump
       takeName: Take 001
@@ -648,6 +654,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 0
@@ -661,7 +668,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .45022893
+      - time: 0.45022893
         functionName: jump
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -747,6 +754,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Airborne
       takeName: Take 001
@@ -757,6 +765,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 1
       loopBlend: 0
       loopBlendOrientation: 1
@@ -849,6 +858,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Land
       takeName: Take 001
@@ -859,6 +869,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -951,6 +962,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: LightHit
       takeName: Take 001
@@ -961,6 +973,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -1053,6 +1066,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: HeavyHit
       takeName: Take 001
@@ -1063,6 +1077,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -1155,8 +1170,9 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: LightAttack
+      name: UnusedAttack
       takeName: Take 001
       firstFrame: 122
       lastFrame: 135
@@ -1165,6 +1181,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -1178,7 +1195,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .381355911
+      - time: 0.3813559
         functionName: createAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -1264,8 +1281,9 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
-      name: HeavyAttack
+      name: LightAttack
       takeName: Take 001
       firstFrame: 135
       lastFrame: 155
@@ -1274,6 +1292,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -1287,7 +1306,7 @@ ModelImporter:
       bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
       curves: []
       events:
-      - time: .481413305
+      - time: 0.4814133
         functionName: createAttack
         data: 
         objectReferenceParameter: {instanceID: 0}
@@ -1373,6 +1392,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Dead
       takeName: Take 001
@@ -1383,6 +1403,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -1475,6 +1496,7 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
     - serializedVersion: 16
       name: Stand
       takeName: Take 001
@@ -1485,6 +1507,7 @@ ModelImporter:
       level: 0
       cycleOffset: 0
       loop: 0
+      hasAdditiveReferencePose: 0
       loopTime: 0
       loopBlend: 0
       loopBlendOrientation: 1
@@ -1577,6 +1600,125 @@ ModelImporter:
         weight: 1
       maskType: 0
       maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 0
+    - serializedVersion: 16
+      name: HeavyAttack
+      takeName: Take 001
+      firstFrame: 180
+      lastFrame: 201
+      wrapMode: 0
+      orientationOffsetY: 0
+      level: 0
+      cycleOffset: 0
+      loop: 0
+      hasAdditiveReferencePose: 0
+      loopTime: 0
+      loopBlend: 0
+      loopBlendOrientation: 1
+      loopBlendPositionY: 1
+      loopBlendPositionXZ: 1
+      keepOriginalOrientation: 0
+      keepOriginalPositionY: 1
+      keepOriginalPositionXZ: 0
+      heightFromFeet: 0
+      mirror: 0
+      bodyMask: 01000000010000000100000001000000010000000100000001000000010000000100000001000000010000000100000001000000
+      curves: []
+      events:
+      - time: 0.4796148
+        functionName: createAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      - time: 0.6708188
+        functionName: destroyAttack
+        data: 
+        objectReferenceParameter: {instanceID: 0}
+        floatParameter: 0
+        intParameter: 0
+        messageOptions: 0
+      transformMask:
+      - path: 
+        weight: 1
+      - path: BigGuy
+        weight: 0
+      - path: Character_Root
+        weight: 1
+      - path: Character_Root/Spine00
+        weight: 1
+      - path: Character_Root/Spine00/Left_Leg00
+        weight: 1
+      - path: Character_Root/Spine00/Left_Leg00/Left_Leg01
+        weight: 1
+      - path: Character_Root/Spine00/Left_Leg00/Left_Leg01/Left_Leg02
+        weight: 1
+      - path: Character_Root/Spine00/Left_Leg00/Left_Leg01/Left_Leg02/Left_Leg03
+        weight: 0
+      - path: Character_Root/Spine00/Right_Leg00
+        weight: 1
+      - path: Character_Root/Spine00/Right_Leg00/Right_Leg01
+        weight: 1
+      - path: Character_Root/Spine00/Right_Leg00/Right_Leg01/Right_Leg02
+        weight: 1
+      - path: Character_Root/Spine00/Right_Leg00/Right_Leg01/Right_Leg02/Right_Leg03
+        weight: 0
+      - path: Character_Root/Spine00/Spine01
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Head00
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Head00/Head01
+        weight: 0
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Left_Arm00
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Left_Arm00/Left_Arm01
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Left_Arm00/Left_Arm01/Left_Arm02
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Left_Arm00/Left_Arm01/Left_Arm02/Left_Arm03
+        weight: 0
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Right_Arm00
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Right_Arm00/Right_Arm01
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Right_Arm00/Right_Arm01/Right_Arm02
+        weight: 1
+      - path: Character_Root/Spine00/Spine01/Spine02/Spine03/Spine04/Right_Arm00/Right_Arm01/Right_Arm02/Right_Arm03
+        weight: 0
+      - path: Character_Root/Spine00/Tail00
+        weight: 0
+      - path: Character_Root/Spine00/Tail00/Tail01
+        weight: 0
+      - path: Character_Root/Spine00/Tail00/Tail01/Tail02
+        weight: 0
+      - path: Character_Root/Spine00/Tail00/Tail01/Tail02/Tail03
+        weight: 0
+      - path: Character_Root/Spine00/Tail00/Tail01/Tail02/Tail03/Tail04
+        weight: 0
+      - path: Character_Root/Spine00/Tail00/Tail01/Tail02/Tail03/Tail04/Tail05
+        weight: 0
+      - path: IK Spine
+        weight: 0
+      - path: IK_Left_Arm
+        weight: 0
+      - path: IK_Left_Leg
+        weight: 0
+      - path: IK_Right_Arm
+        weight: 0
+      - path: IK_Right_Leg
+        weight: 0
+      - path: IK_Tail
+        weight: 0
+      maskType: 0
+      maskSource: {instanceID: 0}
+      additiveReferencePoseFrame: 4.7999997
     isReadable: 1
   meshes:
     lODScreenPercentages: []
@@ -1597,9 +1739,8 @@ ModelImporter:
     useFileScale: 1
   tangentSpace:
     normalSmoothAngle: 60
-    splitTangentsAcrossUV: 1
     normalImportMode: 0
-    tangentImportMode: 1
+    tangentImportMode: 4
   importAnimation: 1
   copyAvatar: 0
   humanDescription:
@@ -1739,200 +1880,203 @@ ModelImporter:
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: BigGuy
-      position: {x: 0, y: .967764854, z: .355603278}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      position: {x: 0, y: 0.96776485, z: 0.35560328}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Character_Root
       position: {x: 0, y: 0, z: 0}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Spine00
-      position: {x: 1.93786619e-07, y: .0134626068, z: .985755801}
-      rotation: {x: -.230931208, y: .668334246, z: -.230930552, w: .668334603}
-      scale: {x: 1.00000024, y: 1.00000024, z: 1}
+      position: {x: 0.00000019378662, y: 0.013462607, z: 0.9857558}
+      rotation: {x: -0.23093121, y: 0.66833425, z: -0.23093055, w: 0.6683346}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
       transformModified: 1
     - name: Spine01
-      position: {x: -.21191971, y: -1.55029295e-06, z: -4.12530454e-08}
-      rotation: {x: 2.05604246e-15, y: -1.40613297e-14, z: .144681171, w: .98947835}
-      scale: {x: 1.00000024, y: 1.00000024, z: 1}
+      position: {x: -0.21191971, y: -0.000001550293, z: -0.000000041253045}
+      rotation: {x: 2.0560425e-15, y: -1.406133e-14, z: 0.14468117, w: 0.98947835}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
       transformModified: 1
     - name: Spine02
-      position: {x: -.143826008, y: -4.84466568e-07, z: 6.06904571e-09}
-      rotation: {x: -2.8338812e-14, y: 1.43754773e-14, z: -.00580037618, w: .999983191}
-      scale: {x: .999999702, y: .999999702, z: 1}
+      position: {x: -0.14382601, y: -0.00000048446657, z: 0.0000000060690457}
+      rotation: {x: -2.8338812e-14, y: 1.4375477e-14, z: -0.005800376, w: 0.9999832}
+      scale: {x: 0.9999997, y: 0.9999997, z: 1}
       transformModified: 1
     - name: Spine03
-      position: {x: -.173705086, y: -6.78253173e-07, z: 7.28361238e-09}
-      rotation: {x: 2.60766733e-14, y: 2.41284992e-14, z: .102929622, w: .99468869}
-      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      position: {x: -0.17370509, y: -0.0000006782532, z: 0.0000000072836124}
+      rotation: {x: 2.6076673e-14, y: 2.41285e-14, z: 0.10292962, w: 0.9946887}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
       transformModified: 1
     - name: Spine04
-      position: {x: -.246031731, y: 9.68933094e-08, z: 4.1582098e-12}
-      rotation: {x: 3.8329091e-07, y: 5.1100006e-08, z: .132149935, w: .991229773}
-      scale: {x: .999999702, y: .999999702, z: 1}
+      position: {x: -0.24603173, y: 0.00000009689331, z: 4.15821e-12}
+      rotation: {x: 0.0000003832909, y: 0.000000051100006, z: 0.13214993, w: 0.9912298}
+      scale: {x: 0.9999997, y: 0.9999997, z: 1}
       transformModified: 1
     - name: Head00
-      position: {x: -.414797336, y: -.0027211518, z: 2.90679935e-07}
-      rotation: {x: .967311442, y: .253591448, z: -2.19540183e-07, w: 1.02743449e-07}
-      scale: {x: 1.00000024, y: 1.00000024, z: 1}
+      position: {x: -0.41479734, y: -0.0027211518, z: 0.00000029067994}
+      rotation: {x: 0.96731144, y: 0.25359145, z: -0.00000021954018, w: 0.00000010274345}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
       transformModified: 1
     - name: Head01
-      position: {x: -.531667292, y: 1.93786619e-07, z: 7.16135204e-08}
-      rotation: {x: 1.42108547e-14, y: 2.11758237e-22, z: 1.49011612e-08, w: 1}
+      position: {x: -0.5316673, y: 0.00000019378662, z: 0.00000007161352}
+      rotation: {x: 1.4210855e-14, y: 2.1175824e-22, z: 0.000000014901161, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Right_Arm00
-      position: {x: -.0550529137, y: -.0708389878, z: .353762954}
-      rotation: {x: -.536149681, y: .449518323, z: .548366666, w: .458007604}
-      scale: {x: 1.00000012, y: 1.00000036, z: .999999762}
+      position: {x: -0.055052914, y: -0.07083899, z: 0.35376295}
+      rotation: {x: -0.5361497, y: 0.44951832, z: 0.54836667, w: 0.4580076}
+      scale: {x: 1.0000001, y: 1.0000004, z: 0.99999976}
       transformModified: 1
     - name: Right_Arm01
-      position: {x: -.59500438, y: 2.42233284e-07, z: 9.68933094e-08}
-      rotation: {x: .00898471195, y: .0103711765, z: -.00901954435, w: .999865234}
-      scale: {x: .99999994, y: 1.00000012, z: 1.00000012}
+      position: {x: -0.5950044, y: 0.00000024223328, z: 0.00000009689331}
+      rotation: {x: 0.008984712, y: 0.0103711765, z: -0.009019544, w: 0.99986523}
+      scale: {x: 0.99999994, y: 1.0000001, z: 1.0000001}
       transformModified: 1
     - name: Right_Arm02
-      position: {x: -.526891649, y: 0, z: 9.68933094e-08}
-      rotation: {x: .138730079, y: .0571649224, z: -.073033683, w: .985977769}
-      scale: {x: .99999994, y: .999999881, z: .999999881}
+      position: {x: -0.52689165, y: 0, z: 0.00000009689331}
+      rotation: {x: 0.13873008, y: 0.057164922, z: -0.07303368, w: 0.98597777}
+      scale: {x: 0.99999994, y: 0.9999999, z: 0.9999999}
       transformModified: 1
     - name: Right_Arm03
-      position: {x: -.429197341, y: -9.68933094e-08, z: 4.84466547e-08}
-      rotation: {x: 8.38190406e-09, y: 6.24500584e-17, z: 7.45058149e-09, w: 1}
-      scale: {x: 1, y: .999999881, z: 1.00000012}
+      position: {x: -0.42919734, y: -0.00000009689331, z: 0.000000048446655}
+      rotation: {x: 0.000000008381904, y: 6.245006e-17, z: 0.0000000074505815, w: 1}
+      scale: {x: 1, y: 0.9999999, z: 1.0000001}
       transformModified: 1
     - name: Left_Arm00
-      position: {x: -.0550530106, y: -.0708389878, z: -.362242579}
-      rotation: {x: .457932442, y: .548434019, z: .449437678, w: -.536212444}
-      scale: {x: 1.00000024, y: 1.00000024, z: 1}
+      position: {x: -0.05505301, y: -0.07083899, z: -0.36224258}
+      rotation: {x: 0.45793244, y: 0.548434, z: 0.44943768, w: -0.53621244}
+      scale: {x: 1.0000002, y: 1.0000002, z: 1}
       transformModified: 1
     - name: Left_Arm01
-      position: {x: -.59500432, y: -2.30121614e-07, z: -4.84466547e-08}
-      rotation: {x: -.00898939185, y: .010376812, z: .00901691243, w: .999865174}
-      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      position: {x: -0.5950043, y: -0.00000023012161, z: -0.000000048446655}
+      rotation: {x: -0.008989392, y: 0.010376812, z: 0.009016912, w: 0.9998652}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
       transformModified: 1
     - name: Left_Arm02
-      position: {x: -.526891708, y: -2.42233284e-07, z: 0}
-      rotation: {x: -.138733685, y: .0571399145, z: .0730229467, w: .985979497}
-      scale: {x: .999999821, y: .999999821, z: 1}
+      position: {x: -0.5268917, y: -0.00000024223328, z: 0}
+      rotation: {x: -0.13873369, y: 0.057139914, z: 0.07302295, w: 0.9859795}
+      scale: {x: 0.9999998, y: 0.9999998, z: 1}
       transformModified: 1
     - name: Left_Arm03
-      position: {x: -.429197431, y: 4.84466547e-08, z: -4.84466547e-08}
-      rotation: {x: -1.86264482e-09, y: 5.47152013e-09, z: -8.19563866e-08, w: 1}
+      position: {x: -0.42919743, y: 0.000000048446655, z: -0.000000048446655}
+      rotation: {x: -0.0000000018626448, y: 0.00000000547152, z: -0.00000008195639,
+        w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Right_Leg00
-      position: {x: -.0467139594, y: -.0537726879, z: .152249664}
-      rotation: {x: -.12867479, y: .315965682, z: .911871672, w: -.228251114}
-      scale: {x: .999999642, y: .999999821, z: 1.00000036}
+      position: {x: -0.04671396, y: -0.053772688, z: 0.15224966}
+      rotation: {x: -0.12867479, y: 0.31596568, z: 0.9118717, w: -0.22825111}
+      scale: {x: 0.99999964, y: 0.9999998, z: 1.0000004}
       transformModified: 1
     - name: Right_Leg01
-      position: {x: -.505829215, y: -2.42233273e-08, z: 7.26699838e-08}
-      rotation: {x: -.0743929148, y: .0571952313, z: .261680245, w: .960582078}
-      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      position: {x: -0.5058292, y: -0.000000024223327, z: 0.000000072669984}
+      rotation: {x: -0.074392915, y: 0.05719523, z: 0.26168025, w: 0.9605821}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
       transformModified: 1
     - name: Right_Leg02
-      position: {x: -.468509823, y: -3.14903247e-07, z: 0}
-      rotation: {x: .0154301934, y: .600024521, z: .798977613, w: .0369793698}
-      scale: {x: 1, y: 1.00000012, z: 1}
+      position: {x: -0.46850982, y: -0.00000031490325, z: 0}
+      rotation: {x: 0.015430193, y: 0.6000245, z: 0.7989776, w: 0.03697937}
+      scale: {x: 1, y: 1.0000001, z: 1}
       transformModified: 1
     - name: Right_Leg03
-      position: {x: -.380066872, y: 1.57451623e-07, z: -2.42233273e-08}
-      rotation: {x: -1.152205e-08, y: -3.82677747e-08, z: -4.40923212e-16, w: 1}
-      scale: {x: .99999994, y: .999999821, z: .999999881}
+      position: {x: -0.38006687, y: 0.00000015745162, z: -0.000000024223327}
+      rotation: {x: -0.00000001152205, y: -0.000000038267775, z: -4.409232e-16, w: 1}
+      scale: {x: 0.99999994, y: 0.9999998, z: 0.9999999}
       transformModified: 1
     - name: Tail00
-      position: {x: 1.21116642e-07, y: 0, z: -4.84466547e-08}
-      rotation: {x: .0159066468, y: .999873519, z: -4.0052376e-07, w: -5.44547056e-08}
-      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      position: {x: 0.00000012111664, y: 0, z: -0.000000048446655}
+      rotation: {x: 0.015906647, y: 0.9998735, z: -0.00000040052376, w: -0.000000054454706}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
       transformModified: 1
     - name: Tail01
-      position: {x: -.243861392, y: -9.68933094e-08, z: 9.18234377e-09}
-      rotation: {x: 8.7284177e-14, y: -5.36916228e-14, z: .0365199782, w: .999332964}
+      position: {x: -0.24386139, y: -0.00000009689331, z: 0.000000009182344}
+      rotation: {x: 8.728418e-14, y: -5.3691623e-14, z: 0.03651998, w: 0.99933296}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Tail02
-      position: {x: -.218151167, y: 9.68933094e-08, z: 1.00414299e-08}
-      rotation: {x: -1.10580056e-09, y: -4.66573447e-09, z: -.230627626, w: .973042071}
+      position: {x: -0.21815117, y: 0.00000009689331, z: 0.00000001004143}
+      rotation: {x: -0.0000000011058006, y: -0.0000000046657345, z: -0.23062763, w: 0.9730421}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Tail03
-      position: {x: -.218038574, y: 4.84466547e-08, z: 0}
-      rotation: {x: -6.99935221e-09, y: -2.7872332e-08, z: -.243553817, w: .969887376}
-      scale: {x: .99999994, y: .99999994, z: 1}
+      position: {x: -0.21803857, y: 0.000000048446655, z: 0}
+      rotation: {x: -0.000000006999352, y: -0.000000027872332, z: -0.24355382, w: 0.9698874}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
       transformModified: 1
     - name: Tail04
-      position: {x: -.225960135, y: -2.42233273e-08, z: -1.84809321e-13}
-      rotation: {x: -6.64405864e-09, y: -2.53972914e-08, z: -.253090143, w: .967442751}
-      scale: {x: 1.00000012, y: 1.00000012, z: 1}
+      position: {x: -0.22596014, y: -0.000000024223327, z: -1.8480932e-13}
+      rotation: {x: -0.0000000066440586, y: -0.000000025397291, z: -0.25309014, w: 0.96744275}
+      scale: {x: 1.0000001, y: 1.0000001, z: 1}
       transformModified: 1
     - name: Tail05
-      position: {x: -.210649356, y: 4.84466547e-08, z: 1.84809321e-13}
-      rotation: {x: -5.68434121e-14, y: 0, z: -0, w: 1}
+      position: {x: -0.21064936, y: 0.000000048446655, z: 1.8480932e-13}
+      rotation: {x: -5.6843412e-14, y: 0, z: -0, w: 1}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Left_Leg00
-      position: {x: -.0467143953, y: -.0537724905, z: -.15255037}
-      rotation: {x: -.2283777, y: .91215539, z: .31515947, w: -.128416002}
-      scale: {x: .999999762, y: .999999702, z: 1}
+      position: {x: -0.046714395, y: -0.05377249, z: -0.15255037}
+      rotation: {x: -0.2283777, y: 0.9121554, z: 0.31515947, w: -0.128416}
+      scale: {x: 0.99999976, y: 0.9999997, z: 1}
       transformModified: 1
     - name: Left_Leg01
-      position: {x: -.505829215, y: 9.68933094e-08, z: -2.42233273e-08}
-      rotation: {x: .0742143616, y: .0570576563, z: -.261768639, w: .960579932}
+      position: {x: -0.5058292, y: 0.00000009689331, z: -0.000000024223327}
+      rotation: {x: 0.07421436, y: 0.057057656, z: -0.26176864, w: 0.96057993}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Left_Leg02
-      position: {x: -.468509853, y: 2.42233273e-08, z: 2.42233273e-08}
-      rotation: {x: .0154185072, y: -.598925114, z: .799778581, w: -.0374879539}
+      position: {x: -0.46850985, y: 0.000000024223327, z: 0.000000024223327}
+      rotation: {x: 0.015418507, y: -0.5989251, z: 0.7997786, w: -0.037487954}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: Left_Leg03
-      position: {x: -.380066901, y: -1.33228298e-07, z: -2.42233273e-08}
-      rotation: {x: 3.88899979e-09, y: -1.91480485e-08, z: 7.4466756e-17, w: 1}
-      scale: {x: .99999994, y: .99999994, z: 1}
+      position: {x: -0.3800669, y: -0.0000001332283, z: -0.000000024223327}
+      rotation: {x: 0.000000003889, y: -0.000000019148048, z: 7.4466756e-17, w: 1}
+      scale: {x: 0.99999994, y: 0.99999994, z: 1}
       transformModified: 1
     - name: IK Spine
-      position: {x: 4.31889902e-08, y: .930381775, z: .675010562}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      position: {x: 0.00000004318899, y: 0.9303818, z: 0.67501056}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: IK_Left_Arm
-      position: {x: -.570792258, y: .114626527, z: .285657257}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      position: {x: -0.57079226, y: 0.11462653, z: 0.28565726}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: IK_Left_Leg
-      position: {x: -.136219323, y: .0703377575, z: -.523158669}
-      rotation: {x: -.74886322, y: 0, z: -0, w: .662724555}
+      position: {x: -0.13621932, y: 0.07033776, z: -0.52315867}
+      rotation: {x: -0.7488632, y: 0, z: -0, w: 0.66272455}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: IK_Right_Arm
-      position: {x: .562312305, y: .114626653, z: .578667879}
-      rotation: {x: -.775177777, y: 0, z: -0, w: .631743193}
+      position: {x: 0.5623123, y: 0.11462665, z: 0.5786679}
+      rotation: {x: -0.7751778, y: 0, z: -0, w: 0.6317432}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: IK_Right_Leg
-      position: {x: .135918826, y: .0703376606, z: -.432543278}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      position: {x: 0.13591883, y: 0.07033766, z: -0.43254328}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
     - name: IK_Tail
-      position: {x: 2.90974413e-07, y: .34320128, z: -1.21507192}
-      rotation: {x: -.707106829, y: 0, z: -0, w: .707106829}
+      position: {x: 0.0000002909744, y: 0.34320128, z: -1.2150719}
+      rotation: {x: -0.7071068, y: 0, z: -0, w: 0.7071068}
       scale: {x: 1, y: 1, z: 1}
       transformModified: 1
-    armTwist: .5
-    foreArmTwist: .5
-    upperLegTwist: .5
-    legTwist: .5
-    armStretch: .0500000007
-    legStretch: .0500000007
+    armTwist: 0.5
+    foreArmTwist: 0.5
+    upperLegTwist: 0.5
+    legTwist: 0.5
+    armStretch: 0.05
+    legStretch: 0.05
     feetSpacing: 0
     rootMotionBoneName: 
+    hasTranslationDoF: 0
   lastHumanDescriptionAvatarSource: {instanceID: 0}
   animationType: 3
+  humanoidOversampling: 1
   additionalBone: 0
   userData: 
   assetBundleName: 

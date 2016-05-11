@@ -59,7 +59,7 @@ public class behavior : StateMachineBehaviour {
 			attack.sourceChar = collider;
 			attack.transform.position = collider.transform.position;
             attack.transform.rotation = collider.transform.rotation;
-
+            Debug.logger.Log("created attack");
 			if(attack.particles != null)
 			{
 				// Instantiate the particles and set up references to their components.

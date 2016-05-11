@@ -141,7 +141,7 @@ public class Character : MonoBehaviour {
             return;
 
 
-        Debug.logger.Log("Indirect Hit");
+        //Debug.logger.Log("Indirect Hit");
 
         Hit(thing.oldVelocity.magnitude * thing.body.mass);
 	}
@@ -153,7 +153,7 @@ public class Character : MonoBehaviour {
         if (thing == null)
             return;
 
-        Debug.logger.Log("Direct Hit");
+        //Debug.logger.Log("Direct Hit");
 
         if(invincibilityFrames <= 0)
             body.AddForce(Vector3.up * 500, ForceMode.Impulse);
@@ -164,7 +164,7 @@ public class Character : MonoBehaviour {
     void Hit(float impactForce)
     {
        
-        Debug.logger.Log("Hit " + impactForce);
+        //Debug.logger.Log("Hit " + impactForce);
         if (impactForce < 500 || invincibilityFrames > 0)
             return;
 
@@ -270,6 +270,7 @@ public class Character : MonoBehaviour {
 
 	public void createAttack()
 	{
+        Debug.logger.Log("Create Attack");
 		behavior.createAttack (GetComponent<Collider>());
 		invincibilityFrames = 10;
 	}
