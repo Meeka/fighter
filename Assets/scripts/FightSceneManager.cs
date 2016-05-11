@@ -1,6 +1,7 @@
 ﻿using UnityEngine;
 using System.Collections;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class FightSceneManager : MonoBehaviour {
 
@@ -26,7 +27,6 @@ public class FightSceneManager : MonoBehaviour {
 	public Text player2UIName;
 
 	public Text winner;
-	public string playerWin = "test";
 
 	public Button restartButton;
 
@@ -87,16 +87,16 @@ public class FightSceneManager : MonoBehaviour {
 
 		if (player1Percent <= 0 || (timer <= 0 && player2Percent > player1Percent)) {
 			gameOverBtn.SetTrigger ("play");
-			winner.text = player2Name + " WINS!!!";
+			winner.text = player2Name + " WINS";
 			restartButton.gameObject.SetActive (true);
 		} else if (player2Percent <= 0 || (timer <= 0 && player2Percent < player1Percent)) {
 			gameOverBtn.SetTrigger ("play");
-			winner.text = player1Name + " WINS!!!";
+			winner.text = player1Name + " WINS";
 			restartButton.gameObject.SetActive (true);
 
 		} else if (timer <= 0 && player2Percent == player1Percent) {
 			gameOverBtn.SetTrigger ("play");
-			winner.text = "DRAW!!!";
+			winner.text = "DRAW";
 			restartButton.gameObject.SetActive (true);
 		}
 
@@ -121,6 +121,6 @@ public class FightSceneManager : MonoBehaviour {
 
 	public void RestartGame()
 	{
-		Application.LoadLevel ("MainMenu");
+		SceneManager.LoadScene ("MainMenu");
 	}
 }

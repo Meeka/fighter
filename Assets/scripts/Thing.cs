@@ -3,10 +3,12 @@ using System.Collections;
 
 public class Thing : MonoBehaviour {
 
-    Rigidbody body;
+    public Rigidbody body;
     Collider collider;
     bool attackEndable;
     AudioSource audio;
+
+    public Vector3 oldVelocity;
 
     //ParticalSystem particals;
 
@@ -15,6 +17,11 @@ public class Thing : MonoBehaviour {
         body = GetComponent<Rigidbody>();
         collider = GetComponent<Collider>();
         audio = GetComponent<AudioSource>();
+    }
+
+    void FixedUpdate()
+    {
+        oldVelocity = body.velocity;
     }
 
     internal void Attacked(Attack attack)
@@ -48,12 +55,15 @@ public class Thing : MonoBehaviour {
             return;
         }
 
+        
+
         Rigidbody otherBody = other.GetComponent<Rigidbody>();
         if (otherBody != null && collider.isTrigger)
         {
-            //if(Time.frameCount > 30)
-                audio.Play();
-            otherBody.AddForce(Vector3.up * 500, ForceMode.Impulse);
+            audio.Play();
+
+            if(other.GetComponent<Character>() == null)
+                otherBody.AddForce(Vector3.up * 500, ForceMode.Impulse);
         }
     }
 }

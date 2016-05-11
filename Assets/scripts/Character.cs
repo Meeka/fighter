@@ -97,6 +97,8 @@ public class Character : MonoBehaviour {
 		Debug.DrawLine(origin4, origin4 + direction4);
 		Debug.DrawLine(origin5, origin5 + direction5);*/
         
+        
+
 		if(!leftSide)
 			animator.SetFloat ("forwardSpeed", body.velocity.z);
 			//animator.SetFloat ("forwardSpeed", horizontalMoveAmount);
@@ -127,41 +129,63 @@ public class Character : MonoBehaviour {
 		if (HP <= 0)
 			animator.SetBool ("dead", true);
 
-		invincibilityFrames -= Time.deltaTime;
+        invincibilityFrames--;
 	}
 
-	//hit by a object
+	//indirect hit by an object
 	void OnCollisionEnter(Collision collision) 
 	{
 		//other player
-		if (collision.gameObject.GetComponent<Character> ())
-			return;
+        Thing thing = collision.gameObject.GetComponent<Thing>();
+        if (thing == null)
+            return;
 
-		Rigidbody body = collision.rigidbody;
 
-		//if(body != null)
-		//	Debug.Log (body.velocity.magnitude);
+        Debug.logger.Log("Indirect Hit");
 
-		if(body == null || body.velocity.magnitude < 4)
-		   return;
-		
-		float damage = Mathf.Clamp (body.mass * body.velocity.magnitude / 20, 0, 50);
-		if (invincibilityFrames <= 0) {
-			HP -= damage;
-		}
-
-		if(damage <= 20)
-			animator.SetTrigger ("lightHit");
-		else
-			animator.SetTrigger ("heavyHit");
+        Hit(thing.oldVelocity.magnitude * thing.body.mass);
 	}
-		
+
+    //direct hit by an object
+    void OnTriggerEnter(Collider other)
+    {
+        Thing thing = other.GetComponent<Thing>();
+        if (thing == null)
+            return;
+
+        Debug.logger.Log("Direct Hit");
+
+        if(invincibilityFrames <= 0)
+            body.AddForce(Vector3.up * 500, ForceMode.Impulse);
+
+        Hit(thing.oldVelocity.magnitude * thing.body.mass);
+    }
+
+    void Hit(float impactForce)
+    {
+       
+        Debug.logger.Log("Hit " + impactForce);
+        if (impactForce < 500 || invincibilityFrames > 0)
+            return;
+
+        float damage = Mathf.Clamp(impactForce / 35, 0, 50);
+        HP -= damage;
+
+        if (damage <= 20)
+            animator.SetTrigger("lightHit");
+        else
+            animator.SetTrigger("heavyHit");
+
+        invincibilityFrames = 5;
+        
+    }
+
 	//hit by an attack
 	public void Attacked(Attack attack)
 	{
 		HP = Mathf.Clamp(HP - attack.damage, 0, startHP);
 
-		if(attack.damage <= 20)
+		if(attack.damage <= startHP / 5)
 			animator.SetTrigger ("lightHit");
 		else
 			animator.SetTrigger ("heavyHit");
@@ -247,7 +271,7 @@ public class Character : MonoBehaviour {
 	public void createAttack()
 	{
 		behavior.createAttack (GetComponent<Collider>());
-		invincibilityFrames = 0.3f;
+		invincibilityFrames = 10;
 	}
 	
 	public void destroyAttack()
