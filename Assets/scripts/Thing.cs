@@ -4,34 +4,56 @@ using System.Collections;
 public class Thing : MonoBehaviour {
 
     Rigidbody body;
-    float startMass;
+    Collider collider;
+    bool attackEndable;
+    AudioSource audio;
 
     //ParticalSystem particals;
 
     void Start()
     {
         body = GetComponent<Rigidbody>();
-        startMass = body.mass;
-    }
-
-    void Update()
-    {
-        if (body.velocity.magnitude < 1)
-            EndAttack();
+        collider = GetComponent<Collider>();
+        audio = GetComponent<AudioSource>();
     }
 
     internal void Attacked(Attack attack)
     {
-        Invoke("StartAttack", 0.1f);
+        StartAttack();
     }
 
     void StartAttack()
     {
-        body.mass = startMass * 10;
+        collider.isTrigger = true;
+        attackEndable = false;
+        Invoke("SetEndable", 0.2f);
+    }
+
+    void SetEndable()
+    {
+        attackEndable = true;
     }
 
     void EndAttack()
     {
-        body.mass = startMass;
+        collider.isTrigger = false;
+    }
+
+    void OnTriggerEnter(Collider other)
+    {
+
+        if (attackEndable && other.name == "Ground")
+        {
+            EndAttack();
+            return;
+        }
+
+        Rigidbody otherBody = other.GetComponent<Rigidbody>();
+        if (otherBody != null && collider.isTrigger)
+        {
+            //if(Time.frameCount > 30)
+                audio.Play();
+            otherBody.AddForce(Vector3.up * 500, ForceMode.Impulse);
+        }
     }
 }
