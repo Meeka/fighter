@@ -71,18 +71,18 @@ public class FightSceneManager : MonoBehaviour {
         player2HP.GetComponent<Image>().color = Color.Lerp(Dead, FullHealth, player2Percent);
 
 
-        player1HP.pivot = new Vector2(1 - player1Percent, 0.5f);
+        player1HP.anchorMax = new Vector2(player1Percent, 0.5f);
         if (player1HitDelayCounter == 0)
         {
             player1DelayPercent = Mathf.Max(player1DelayPercent - Time.deltaTime, player1Percent);
-            player1HPDelay.pivot = new Vector2(1 - player1DelayPercent, 0.5f);
+            player1HPDelay.anchorMax = new Vector2(player1DelayPercent, 0.5f);
         }
 
-        player2HP.pivot = new Vector2(1 - player2Percent, 0.5f);
+        player2HP.anchorMax = new Vector2(player2Percent, 0.5f);
         if (player2HitDelayCounter == 0)
         {
             player2DelayPercent = Mathf.Max(player2DelayPercent - Time.deltaTime, player2Percent);
-            player2HPDelay.pivot = new Vector2(1 - player2DelayPercent, 0.5f);
+            player2HPDelay.anchorMax = new Vector2(player2DelayPercent, 0.5f);
         }
 
 		if (player1Percent <= 0 || (timer <= 0 && player2Percent > player1Percent)) {

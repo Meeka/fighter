@@ -72,7 +72,7 @@ public class behavior : StateMachineBehaviour {
 	public void destroyAttack()
 	{
 		if (attack != null) {
-			Destroy (attack.gameObject);
+			attack.End();
 		}
 		if(particleSystem != null)
 		{

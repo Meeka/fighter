@@ -29,6 +29,23 @@ public class Attack : MonoBehaviour
 			other.attachedRigidbody.AddForce(HitAngleNew * forceMultiplier, ForceMode.Impulse);
 		}
 	}
+
+    internal void End()
+    {
+        AudioSource soundClip = GetComponent<AudioSource>();
+        if (soundClip == null || !soundClip.isPlaying)
+            DestroyThis();
+        else
+        {
+            GetComponent<Collider>().enabled = false;
+            Invoke("DestroyThis", soundClip.clip.length - soundClip.time);
+        }
+    }
+
+    void DestroyThis()
+    {
+        Destroy(gameObject);
+    }
 }
 
 
