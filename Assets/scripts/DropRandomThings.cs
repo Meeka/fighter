@@ -19,6 +19,7 @@ public class DropRandomThings : MonoBehaviour {
 		if(timer <0)
 		{
 			GameObject o = Instantiate<GameObject>(ThingsPrefabs[Random.Range(0, ThingsPrefabs.Count)]);
+            o.transform.parent = transform.parent;
 			o.transform.position = new Vector3(0, 20, Random.Range(-35,35));
 			timer = 5;
 		}

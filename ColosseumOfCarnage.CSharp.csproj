@@ -77,7 +77,7 @@
     <Compile Include="Assets\scripts\SpawnRandomThings.cs" />
     <Compile Include="Assets\scripts\StartScreenManager.cs" />
     <Compile Include="Assets\scripts\Thing.cs" />
-    <Compile Include="Assets\scripts\behaviors\behavior.cs" />
+    <Compile Include="Assets\scripts\behaviors\AttackBehavior.cs" />
     <Compile Include="Assets\scripts\behaviors\hitBehavior.cs" />
     <Compile Include="Assets\scripts\controls.cs" />
     <Compile Include="Assets\scripts\test.cs" />

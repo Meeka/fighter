@@ -11,6 +11,7 @@ public class SpawnRandomThings : MonoBehaviour {
 		float offset = 0;
 		for (int i = 0; i < Random.Range(0, 8); i ++) {
 			GameObject go = Instantiate(ThingsPrefabs[Random.Range(0, ThingsPrefabs.Count)]);
+            go.transform.parent = transform.parent;
 			offset += go.GetComponent<Collider>().bounds.extents.y;
 			go.transform.position = transform.position + Vector3.up * offset;
 			offset += go.GetComponent<Collider>().bounds.extents.y;

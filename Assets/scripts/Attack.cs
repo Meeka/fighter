@@ -3,10 +3,21 @@ using UnityEngine;
 
 public class Attack : MonoBehaviour
 {
+    public enum ParticalAttachAnchor
+    {
+        Body,
+        LeftArm,
+        RightArm
+    }
+    public ParticalAttachAnchor particalAttachAnchor;
+
 	public float damage;
 	[HideInInspector]
-	public Collider sourceChar;
+    public GameObject sourceChar;
 	public GameObject particles;            // Prefab of the particle system to play in the state.
+    
+
+
 	public AvatarIKGoal attackLimb;
 
 	public float forceMultiplier = 10;
@@ -14,7 +25,7 @@ public class Attack : MonoBehaviour
 
 	void OnTriggerEnter(Collider other)
 	{
-		if (other != sourceChar) 
+		if (other.gameObject != sourceChar) 
 		{
 
 			Vector3 HitAngleNew = HitAngle.normalized;

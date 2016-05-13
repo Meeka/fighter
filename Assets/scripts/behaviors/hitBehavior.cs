@@ -10,9 +10,9 @@ public class hitBehavior : StateMachineBehaviour {
 	override public void OnStateEnter(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		particals = Instantiate<ParticleSystem> (ParticalPrefab);
 		particals.Play ();
-		particals.transform.parent = animator.transform;
-		particals.transform.localPosition = new Vector3 (0, 0.5f, 0);
-		particals.transform.position += Vector3.right * -1;
+        particals.transform.SetParent(animator.transform, false);
+		//particals.transform.localPosition = new Vector3 (0, 0.5f, 0);
+		//particals.transform.position += Vector3.right * -1;
 	}
 
 	// OnStateUpdate is called on each Update frame between OnStateEnter and OnStateExit callbacks
@@ -23,7 +23,7 @@ public class hitBehavior : StateMachineBehaviour {
 	// OnStateExit is called when a transition ends and the state machine finishes evaluating this state
 	override public void OnStateExit(Animator animator, AnimatorStateInfo stateInfo, int layerIndex) {
 		particals.Stop ();
-		Destroy (particals);
+		Destroy (particals.gameObject);
 	}
 
 	// OnStateMove is called right after Animator.OnAnimatorMove(). Code that processes and affects root motion should be implemented here

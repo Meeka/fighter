@@ -1,7 +1,14 @@
 ﻿using UnityEngine;
 using System.Collections;
 
-public class Character : MonoBehaviour {
+public class Character : MonoBehaviour
+{
+
+    public delegate void StartAttack();
+    public StartAttack OnStartAttack;
+
+    public delegate void EndAttack();
+    public EndAttack OnEndAttack;
 
 	public Rigidbody body;
 	Collider collider;
@@ -9,7 +16,7 @@ public class Character : MonoBehaviour {
 	public float HP;
 	public float startHP;
 	public controls controls;
-	Attack currentAttack;
+	//Attack currentAttack;
 
 	public Animator animator;
 
@@ -28,14 +35,13 @@ public class Character : MonoBehaviour {
 	public Transform target;
 
 	public bool airborne;
-	bool block;
-	bool blockDelay;
+
 	float roty;
 	bool leftSide;
 	float invincibilityFrames;
     bool airDashCoolDown;
 
-	behavior behavior;
+	AttackBehavior behavior;
 
 	bool IsWalking {
 		get {
@@ -46,14 +52,13 @@ public class Character : MonoBehaviour {
 
 	// Use this for initialization
 	void Start () {
-		behavior = animator.GetBehaviour<behavior> ();
+		behavior = animator.GetBehaviour<AttackBehavior> ();
 
 		controls.onHorizontalMov += HorizontalMove; 
 		controls.onVerticalMov += VerticalMove; 
 		controls.onHeavyAttack += DoHeavyAttack;
 		controls.onLightAttack += DoLightAttack;
 		controls.onJump += DoJump;
-		controls.onBlock += Block;
 		controls.onDash += DoDash;
 		
 		animator.SetFloat ("walkForwardAnimSpeed", moveSpeed / walkAnimationFactor);
@@ -190,13 +195,7 @@ public class Character : MonoBehaviour {
 		else
 			animator.SetTrigger ("heavyHit");
 	}
-
-	void DoAttack(Attack attack)
-	{
-		currentAttack = attack;
-
-	}
-	
+    	
 	void HorizontalMove(float amount)
 	{
 		float h = body.velocity.z;
@@ -216,13 +215,13 @@ public class Character : MonoBehaviour {
 	void DoHeavyAttack()
 	{
 		animator.SetTrigger ("heavyAttack");
-		behavior.SetAttack (HeavyAttack);
+		//behavior.SetAttack (HeavyAttack);
 
 	}
 	void DoLightAttack()
 	{
 		animator.SetTrigger ("lightAttack");
-		behavior.SetAttack (LightAttack);
+		//behavior.SetAttack (LightAttack);
 	}
 
 	void DoDash(float amount)
@@ -254,13 +253,6 @@ public class Character : MonoBehaviour {
 		}
 	}
 
-	void Block()
-	{
-		block = true; 
-		blockDelay = true;
-	}
-
-
 	//Events from animations
 	public void jump()
 	{
@@ -270,13 +262,14 @@ public class Character : MonoBehaviour {
 
 	public void createAttack()
 	{
-        Debug.logger.Log("Create Attack");
-		behavior.createAttack (GetComponent<Collider>());
+        if (OnStartAttack != null)
+            OnStartAttack();
 		invincibilityFrames = 10;
 	}
 	
 	public void destroyAttack()
 	{
-		behavior.destroyAttack ();
+        if (OnEndAttack != null)
+            OnEndAttack();
 	}
 }
